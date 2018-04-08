@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var equipmentList = document.getElementById('equipment_list').value;
+console.log(equipmentList)
+function addEquipment() {
+	var equipment = document.getElementById('equipment').value;
+	var entry = document.createElement('li');
+	entry.appendChild(document.createTextNode(equipment));
+	// equipmentList.appendChild(entry);
+	console.log(equipment);
+}
+
+</script>
+</head>
+<body>
+	<h1>Upload Recipe</h1>
+	<form>
+		Recipe Name:
+		<input type="text" name="recipe_name" placeholder="type recipe name here">
+		<br>
+		Difficulty:
+		<select name="difficulty">
+			<option value="select_difficulty" disabled selected>Select Difficulty Level</option>
+			<option value="beginner">Beginner</option>
+			<option value="intermediate">Intermediate</option>
+			<option value="advanced">Advanced</option>
+		</select>
+		<br>
+		Description:
+		<br>
+		<textarea name="description" rows="10" cols="50" placeholder="Type a short description of your recipe here."></textarea>
+		<br>
+		Time:
+		<input type="text" name="time" placeholder="type recipe time here">
+		<br>
+		Yield:
+		<input type="text" name="yield" placeholder="type recipe yield here">
+		<br>
+		Equipment:
+		<input type="text" name="equipment" id="equipment"  placeholder="type equipment here">
+		<input type="button" name="add_equipment" value="Add Equipment" onclick="addEquipment()">
+		<ul id="equipment_list"></ul>
+		<br>
+		Ingredients (with quantities):
+		<br>
+		Tags:
+		<br>
+		Audio/Video:
+		<br>
+		Procedure:
+	</form>
+</body>
+</html>
