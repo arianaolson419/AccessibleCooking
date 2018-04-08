@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script>
-var equipmentList = document.getElementById('equipment_list').value;
-console.log(equipmentList)
-function addEquipment() {
-	var equipment = document.getElementById('equipment').value;
-	var entry = document.createElement('li');
-	entry.appendChild(document.createTextNode(equipment));
-	// equipmentList.appendChild(entry);
-	console.log(equipment);
-}
-
-</script>
+<title>Upload Recipe</title>
 </head>
 <body>
 	<h1>Upload Recipe</h1>
-	<form>
+	<ol id="demo"></ol>
+	<form id="upload_recipe_form">
 		Recipe Name:
 		<input type="text" name="recipe_name" placeholder="type recipe name here">
 		<br>
@@ -44,12 +34,63 @@ function addEquipment() {
 		<ul id="equipment_list"></ul>
 		<br>
 		Ingredients (with quantities):
+		<input type="text" name="ingredient" id="ingredient" placeholder="type ingredient here">
+		<input type="button" name="add_ingredient" value="Add Ingredient" onclick="addIngredient()">
+		<ul id="ingredient_list"></ul>
 		<br>
 		Tags:
 		<br>
+		<input type="checkbox" name="tag" value="Breakfast">Breakfast</input>
+		<br>
+		<input type="checkbox" name="tag" value="Lunch">Lunch</input>
+		<br>
+		<input type="checkbox" name="tag" value="Dinner">Dinner</input>
+		<br>
+		<input type="checkbox" name="tag" value="Dessert">Dessert</input>
+		<br>
 		Audio/Video:
+		<input type="url" name="media_url" placeholder="type link to audio/video here">
+		<br>
+		<input type="radio" name="mediatype" id="audio" value="Audio">
+		<label for="audio">Audio</label>
+		<br>
+		<input type="radio" name="mediatype" id="video" value="Video">
+		<label for="video">Video</label>
 		<br>
 		Procedure:
+		<br>
+		<textarea name="instruction" id="instruction" placeholder="Type instruction here"></textarea>
+		<input type="button" name="add_instruction"
+		id="add_instruction" value="Add Instruction"
+		onclick="addInstruction()">
+		<ol id="instruction_list"></ol>
+		<input type="submit" name="submit_recipe" value="Submit Recipe">
 	</form>
 </body>
+<script>
+var equipmentList = document.getElementById('equipment_list');
+var ingredientList = document.getElementById('ingredient_list');
+var instructionList = document.getElementById('instruction_list');
+
+function addEquipment() {
+	var equipment = document.getElementById('equipment').value;
+	var entry = document.createElement('li');
+	entry.appendChild(document.createTextNode(equipment));
+	equipmentList.appendChild(entry);
+}
+
+function addIngredient() {
+	var ingredient = document.getElementById('ingredient').value;
+	var entry = document.createElement('li');
+	entry.appendChild(document.createTextNode(ingredient));
+	ingredientList.appendChild(entry);
+}
+
+function addInstruction() {
+	var instruction = document.getElementById('instruction').value;
+	var entry = document.createElement('li');
+	entry.appendChild(document.createTextNode(instruction));
+	instructionList.appendChild(entry);
+}
+</script>
 </html>
