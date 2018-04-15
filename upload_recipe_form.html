@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload Recipe</title>
+</head>
+<body>
+	<h1>Upload Recipe</h1>
+	<ol id="demo"></ol>
+	<form id="upload_recipe_form">
+		<fieldset name="about_recipe">
+			<legend>Information About the Recipe</legend>
+			<label for="recipe_name">Recipe Name: </label>
+			<input type="text" name="recipe_name" id="recipe_name" placeholder="type recipe name here">
+			<br>
+			<label for="difficulty">Difficulty:</label>
+			<select name="difficulty" id="difficulty">
+				<option value="select_difficulty" disabled selected>Select Difficulty Level</option>
+				<option value="beginner">Beginner</option>
+				<option value="intermediate">Intermediate</option>
+				<option value="advanced">Advanced</option>
+			</select>
+			<br>
+			<label for="description">Description:</label>
+			<br>
+			<textarea name="description" id="desciption" rows="10" cols="50" 
+				placeholder="Type a short description of your recipe here."></textarea>
+			<br>
+			<label for="time">Time:</label>
+			<input type="text" name="time" id="time" placeholder="type recipe time here">
+			<br>
+			<label for=yield>Yield:</label>
+			<input type="text" name="yield" id="yield" placeholder="type recipe yield here">
+			<br>
+		</fieldset>
+		<fieldset name="recipe_details">
+			<legend>Recipe Details</legend>
+			<label for="equipment">Equipment:</label>
+			<input type="text" name="equipment" id="equipment"  placeholder="type equipment here">
+			<input type="button" name="add_equipment" value="Add Equipment" onclick="addEquipment()">
+			<br>
+			<label for="equipment_list">List of Equipment</label>
+			<ul id="equipment_list"></ul>
+			<br>
+			<label for=ingredients>Ingredients (with quantities):</label>
+			<br>
+			<input type="text" name="ingredients" id="ingredient" placeholder="type ingredient here">
+			<input type="button" name="add_ingredient" value="Add Ingredient" onclick="addIngredient()">
+			<br>
+			<label for="ingedient_list">List of Ingredients</label>
+			<ul id="ingredient_list"></ul>
+			<br>
+			<label for="instruction">Procedure:</label>
+			<br>
+			<textarea name="instruction" id="instruction" rows="10" cols="50" placeholder="Type instruction here"></textarea>
+			<br>
+			<input type="button" name="add_instruction"
+			id="add_instruction" value="Add Instruction"
+			onclick="addInstruction()">
+			<br>
+			<label for="instruction_list">List of Instructions</label>
+			<ol id="instruction_list"></ol>
+		</fieldset>
+		<fieldset name="add_tags_to_recipe">
+			<legend>Add Tags to the Recipe</legend>
+			<br>
+			<label for="tag_checkboxes">Select Your Tags:</label>
+			<div name="tag_checkboxes" id="tag_checkboxes">
+			<label for=tag1>Breakfast</label>
+			<input type="checkbox" name="tag" id="tag1" value="Breakfast">
+			<br>
+			<label for=tag2>Lunch</label>
+			<input type="checkbox" name="tag" id="tag2" value="Lunch">
+			<br>
+			<label for=tag3>Dinner</label>
+			<input type="checkbox" name="tag" id="tag3" value="Dinner">
+			<br>
+			<label for=tag4>Dessert</label>
+			<input type="checkbox" name="tag" id="tag4" value="Dessert">
+			<br>
+			</div>
+		</fieldset>
+		<fieldset name="provide_supplemental_media">
+			<legend>Provide Supplemental Audio or Video to the Recipe</legend>
+			<label for="media_url">Audio/Video:</label>
+			<input type="url" name="media_url" id="media_url" placeholder="type link to audio/video here">
+			<br>
+			<input type="radio" name="mediatype" id="audio" value="Audio">
+			<label for="audio">Audio</label>
+			<br>
+			<input type="radio" name="mediatype" id="video" value="Video">
+			<label for="video">Video</label>
+			<br>
+		<fieldset name="submit_form">
+			<input type="submit" name="submit_recipe" value="Submit Recipe">
+		</fieldset>
+	</form>
+</body>
+<script>
+var equipmentList = document.getElementById('equipment_list');
+var ingredientList = document.getElementById('ingredient_list');
+var instructionList = document.getElementById('instruction_list');
+
+function addEquipment() {
+	var equipment = document.getElementById('equipment').value;
+	var entry = document.createElement('li');
+	entry.appendChild(document.createTextNode(equipment));
+	equipmentList.appendChild(entry);
+}
+
+function addIngredient() {
+	var ingredient = document.getElementById('ingredient').value;
+	var entry = document.createElement('li');
+	entry.appendChild(document.createTextNode(ingredient));
+	ingredientList.appendChild(entry);
+}
+
+function addInstruction() {
+	var instruction = document.getElementById('instruction').value;
+	var entry = document.createElement('li');
+	entry.appendChild(document.createTextNode(instruction));
+	instructionList.appendChild(entry);
+}
+</script>
+</html>
