@@ -1,30 +1,32 @@
-from flask.ext.mongoalchemy import Document
+from flask.ext.mongoalchemy import *
+from tip_documents import Tip
+from app.database import *
 
-class Recipe(Document):
+class Recipe(db.Document):
 	"""
 	Represents the definition of a recipe
 	in the repository.
 
 	Fields:
-	title			Title of the recipe. Required
+	recipe_name		Title of the recipe. Required
 					takes a string
 
-	desc			Text description of the recipe. Required
+	description		Text description of the recipe. Required
 					takes a string
 
-	submitter		Name of the submitter. Required
+	submitter		Name of the submitter. Optional.
 					takes a string
 
-	diff			Difficulty of the recipe. Optional.
+	difficulty		Difficulty of the recipe. Optional.
 					takes an integer
 
 	time			Time taken to finish the recipe. Optional.
 					takes a string (TODO: discuss this one -> mandatory in minutes? active/passive time?)
 
-	num_serv		Yield of recipe. Optional
+	servings		Yield of recipe. Optional
 					takes a string (TODO: decide. Int for servings? string for all?)
 
-	equip			Necessary equipment. Optional.
+	equipment		Necessary equipment. Optional.
 					takes a list of strings.
 
 	ingredients		Necessary ingredients. Optional.
@@ -33,28 +35,28 @@ class Recipe(Document):
 	tags			Tags for searching for the recipe. Optional.
 					takes a list of strings.
 
-	aud_vid			Audio/video component. Optional.
+	media_url		Audio/video component. Optional.
 					takes a url.
 
-	steps			Steps of recipe. Optional.
+	instruction		Steps of recipe. Optional.
 					takes a list of strings.
 
 	tips			Tips related to recipe. Optional.
-					TODO: figure out this format. could be dictionary of indices to urls?
+					List of references to Tips
 	"""
 
-	title = StringField(required=True)
-	desc = StringField(required=True)
-	submitter = StringField(required=True)
+	recipe_name = db.StringField(required=True)
+	description = db.StringField(required=True)
+	submitter = db.StringField()
 
-	diff = IntField()
-	time = StringField()
-	num_serv = StringField()
+	difficulty = db.IntField()
+	time = db.StringField()
+	servings = db.StringField()
 
-	equip = ListField(StringField())
-	ingredients = ListField(StringField())
-	steps = ListField(StringField())
-	tags = ListField(StringField())
+	equipment = db.ListField(StringField())
+	ingredients = db.ListField(StringField())
+	instruction = db.ListField(StringField())
+	tags = db.ListField(StringField())
 
-	aud_vid = URLField()
-	tips = ListField(DictField())
+	media_url = db.URLField()
+	tips = db.ListField(ReferenceField(Tip))

@@ -1,6 +1,7 @@
-from flask.ext.mongoalchemy import Document
+from flask.ext.mongoalchemy import *
+from .app.database import *
 
-class Tip(Document):
+class Tip(db.Document):
 	"""
 	Represents the definition of a tip in the
 	repository.
@@ -25,11 +26,11 @@ class Tip(Document):
 					takes a url
 	"""
 
-	title = StringField(required=True)
-	text = StringField(required=True)
-	submitter = StringField(required=True)
+	title = db.StringField(required=True)
+	text = db.StringField(required=True)
+	submitter = db.StringField(required=True)
 
-	related_equip = ListField(StringField())
-	related_ingr = ListField(StringField())
+	related_equip = db.ListField(db.StringField())
+	related_ingr = db.ListField(db.StringField())
 
-	aud_vid = URLField()
+	aud_vid = db.URLField()
