@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload Tip</title>
+</head>
+<body>
+    <h1>Upload Tip</h1>
+    <ol id="demo"></ol>
+    <form id="upload_tip_form">
+            <div name="tipname" id="tipname">
+                <label for="tip_name">Tip Name: </label>
+                <input type="text" name="tip_name" id="tip_name" placeholder="type tip name here">
+                <br><br>
+            </div>
+            <div name="medialink" id="medialink">
+                <label for="medialink">Optional: Provide Supplemental Audio or Video for the Tip</label>
+                <br>
+                <input type="radio" name="mediatype" id="audio" value="Audio">
+                <label for="audio">Audio</label>
+                <br>
+                <input type="radio" name="mediatype" id="video" value="Video">
+                <label for="video">Video</label>
+                <br>
+                <input type="radio" name="mediatype" id="nomedia" value="No Supplemental Media">
+                <label for="nomedia">No Supplemental Media</label>
+                <br>
+                <label for="media_url">Link:</label>
+                <input type="url" name="media_url" id="media_url" placeholder="Link to audio/video here">
+            </div>
+            <div name=tipinfo" id=tipinfo">
+                <br>
+                <label for=tipinfo">Information About the Tip</label>
+                <br>
+                <label for="difficulty">Who is this for?</label>
+                <select name="difficulty" id="difficulty">
+                    <option value="select audience (use alt-down to navigate with screen reader)" disabled selected>Select Audience</option>
+                    <option value="beginner">Beginners</option>
+                    <option value="intermediate">Hobbyists</option>
+                    <option value="advanced">Experts</option>
+                </select>
+                <br>
+                <label for="description">Description:</label>
+                <br>
+                <textarea name="description" id="desciption" rows="10" cols="50" 
+                    placeholder="Write a quick description here."></textarea>
+                <br>
+            </div>
+            <div name="tipdetails" id="tipdetails">
+                <br>
+                <label for="tipdetails">Tip Details</label>
+                <br>
+                <label for="equipment">Equipment and ingredients:</label>
+                <br>
+                <textarea 
+                    name="equipment" 
+                    id="equipment"
+                    rows="10"
+                    cols="50"
+                    placeholder="Type each ingredient or piece of equipment on its own line"></textarea>
+                <br>
+                <label for="instruction">Procedure:</label>
+                <br>
+                <textarea
+                    name="instruction"
+                    id="instruction"
+                    rows="10" cols="50"
+                    placeholder="Type each instruction on its own line"></textarea>
+                <br>
+            </div>
+            <div name="tiptags" id="tiptags">
+                <br>
+                <label for="tiptags">Add Tags to the Tip</label>
+                <br>
+                <label for="tag_checkboxes">Select Your Tags:</label>
+                <div name="tag_checkboxes" id="tag_checkboxes">
+                    <label for=tag1>Breakfast</label>
+                    <input type="checkbox" name="tag" id="tag1" value="Breakfast">
+                    <br>
+                    <label for=tag2>Lunch</label>
+                    <input type="checkbox" name="tag" id="tag2" value="Lunch">
+                    <br>
+                    <label for=tag3>Dinner</label>
+                    <input type="checkbox" name="tag" id="tag3" value="Dinner">
+                    <br>
+                    <label for=tag4>Dessert</label>
+                    <input type="checkbox" name="tag" id="tag4" value="Dessert">
+                    <br>
+                </div>
+            </div>
+            <br>
+            <input type="button" name="review_tip" value="Review Tip">
+            <br><br>
+            <input type="submit" name="submit_tip" value="Submit Tip">
+    </form>
+</body>
+</html>
