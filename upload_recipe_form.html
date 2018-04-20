@@ -7,6 +7,11 @@
 	<h1>Upload Recipe</h1>
 	<ol id="demo"></ol>
 	<form id="upload_recipe_form">
+			<div name="recipename" id="recipename">
+				<label for="recipe_name">Recipe Name: </label>
+				<input type="text" name="recipe_name" id="recipe_name" placeholder="type recipe name here">
+				<br><br>
+			</div>
 			<div name="medialink" id="medialink">
 				<label for="medialink">Optional: Provide Supplemental Audio or Video to the Recipe</label>
 				<br>
@@ -26,12 +31,9 @@
 				<br>
 				<label for="recipeinfo">Information About the Recipe</label>
 				<br>
-				<label for="recipe_name">Recipe Name: </label>
-				<input type="text" name="recipe_name" id="recipe_name" placeholder="type recipe name here">
-				<br>
 				<label for="difficulty">Difficulty:</label>
 				<select name="difficulty" id="difficulty">
-					<option value="select_difficulty" disabled selected>Select Difficulty Level</option>
+					<option value="select_difficulty (use alt-down to navigate with screen reader)" disabled selected>Select Difficulty Level</option>
 					<option value="beginner">Beginner</option>
 					<option value="intermediate">Intermediate</option>
 					<option value="advanced">Advanced</option>
