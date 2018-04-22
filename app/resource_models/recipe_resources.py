@@ -1,24 +1,43 @@
 from flask import jsonify, request, abort, Response, make_response
 from flask_restful import Resource
-from flask.ext.mongoalchemy import ValidationError
+from flask_mongoalchemy import ValidationError
 
 import pdb
 import requests
 
-from app import database
+from app import db
 from app.helper_functions.conversions import *
 
 class RecipeAPI(Resource):
 
-	def get(self):
-		""" Fetches a recipe from the database """
-		pass
+    def get(self, recipe_id):
+        """ Fetches a recipe from the database """
+        if recipe_id:  # use recipe id if present
+            result = db.Recipe.objects(id=event_id).first()
 
-	def post(self):
-		""" Adds a recipe to the database through args or form """
-		received_data = request_to_dict(request)
-		try:
-            new_recipe = database.Recipe(**received_data)
+            if not result:
+                return "Event not found with identifier '{}'".format(recipe_id), 404
+            return mongo_to_dict(result)
+
+        else:  # search database based on parameters
+            # make a query to the database
+            query_dict = get_to_recipe_search(request) # TODO: implement query
+            query = recipe_query(query_dict)
+            results = db.Recipe.objects(__raw__ = query)
+            if not results: # if no results were found
+                return []
+
+            recipes_list = []
+            for recipe in results:
+                recipes_list.append(mongo_to_dict(recipe))
+
+            return recipes_list
+
+    def post(self):
+        """ Adds a recipe to the database through args or form """
+        received_data = request_to_dict(request)
+        try:
+            new_recipe = db.Recipe(**received_data)
             new_event.save()
         except ValidationError as error:
             return {'error_type': 'validation',
@@ -27,10 +46,10 @@ class RecipeAPI(Resource):
         else:  # return success
             return mongo_to_dict(new_event), 201
 
-	def put(self):
-		""" Modify a recipe """
-		pass
+    def put(self):
+        """ Modify a recipe """
+        pass
 
-	def delete(self):
-		""" Delete a recipe """
-		pass
+    def delete(self):
+        """ Delete a recipe """
+        pass

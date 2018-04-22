@@ -45,6 +45,7 @@ class Recipe(db.Document):
 					List of references to Tips
 	"""
 
+	recipe_id = db.ObjectIdField()
 	recipe_name = db.StringField(required=True)
 	description = db.StringField(required=True)
 	submitter = db.StringField()

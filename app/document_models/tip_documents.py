@@ -25,7 +25,7 @@ class Tip(db.Document):
 	aud_vid			Audio/video component. Optional.
 					takes a url
 	"""
-
+	tip_id = db.ObjectIdField()
 	title = db.StringField(required=True)
 	text = db.StringField(required=True)
 	submitter = db.StringField(required=True)
