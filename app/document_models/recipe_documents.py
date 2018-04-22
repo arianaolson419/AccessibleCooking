@@ -1,6 +1,6 @@
-from flask.ext.mongoalchemy import *
-from tip_documents import Tip
-from app.database import *
+from flask_mongoalchemy import *
+from .tip_documents import Tip
+from app import db
 
 class Recipe(db.Document):
 	"""
@@ -53,10 +53,10 @@ class Recipe(db.Document):
 	time = db.StringField()
 	servings = db.StringField()
 
-	equipment = db.ListField(StringField())
-	ingredients = db.ListField(StringField())
-	instruction = db.ListField(StringField())
-	tags = db.ListField(StringField())
+	equipment = db.ListField(db.StringField())
+	ingredients = db.ListField(db.StringField())
+	instruction = db.ListField(db.StringField())
+	tags = db.ListField(db.StringField())
 
-	media_url = db.URLField()
-	tips = db.ListField(ReferenceField(Tip))
+	media_url = db.AnythingField()
+	tips = db.ListField(db.AnythingField(Tip))

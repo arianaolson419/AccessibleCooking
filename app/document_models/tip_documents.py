@@ -1,5 +1,5 @@
-from flask.ext.mongoalchemy import *
-from .app.database import *
+from flask_mongoalchemy import *
+from app import db
 
 class Tip(db.Document):
 	"""
@@ -33,4 +33,4 @@ class Tip(db.Document):
 	related_equip = db.ListField(db.StringField())
 	related_ingr = db.ListField(db.StringField())
 
-	aud_vid = db.URLField()
+	aud_vid = db.AnythingField()
