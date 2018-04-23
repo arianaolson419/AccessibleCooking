@@ -44,20 +44,18 @@ class Recipe(db.Document):
 	tips			Tips related to recipe. Optional.
 					List of references to Tips
 	"""
-
-	recipe_id = db.ObjectIdField()
 	recipe_name = db.StringField(required=True)
 	description = db.StringField(required=True)
-	submitter = db.StringField()
+	submitter = db.StringField(required=False)
 
-	difficulty = db.IntField()
-	time = db.StringField()
-	servings = db.StringField()
+	difficulty = db.IntField(required=False)
+	time = db.StringField(required=False)
+	servings = db.StringField(required=False)
 
-	equipment = db.ListField(db.StringField())
-	ingredients = db.ListField(db.StringField())
-	instruction = db.ListField(db.StringField())
-	tags = db.ListField(db.StringField())
+	equipment = db.ListField(db.StringField(required=False))
+	ingredients = db.ListField(db.StringField(required=False))
+	instruction = db.ListField(db.StringField(required=False))
+	tags = db.ListField(db.StringField(required=False))
 
-	media_url = db.AnythingField()
-	tips = db.ListField(db.AnythingField(Tip))
+	media_url = db.AnythingField(required=False)
+	tips = db.ListField(db.AnythingField(required=False))

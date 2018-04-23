@@ -6,7 +6,7 @@ import pytz
 
 import requests
 
-from app import database as db
+from app import db
 
 def mongo_to_dict(obj):
     """Get dictionary from mongoengine object
@@ -39,6 +39,37 @@ def mongo_to_dict(obj):
                 return_data.append((field_name, mongo_to_python_type(obj._fields[field_name], data)))
 
     return dict(return_data)
+
+def request_to_recipe_search(request):
+    """ Build search dictionary based on get parameters """
+    if isinstance(request, dict):
+        req_dict = request
+    else:
+        req_dict = request_to_dict(request)
+
+    split_to_list = lambda a: a if isinstance(a, list) else a.split(',')
+
+    difficulties = {
+        'beginner': ['beginner'],
+        'intermediate': ['intermediate'],
+        'advanced': ['advanced'],
+    }
+
+    preprocessing = {
+        'recipe_name':split_to_list,
+        'ingredients':split_to_list,
+        'equipment':split_to_list,
+        'tags':split_to_list,
+        'tags_not':split_to_list,
+        'difficulty':lambda a: difficulties.get(a, None),
+    }
+
+    search_dict = req_dict
+    for key, process in preprocessing.items():
+        if key in search_dict.keys():
+            search_dict[key] = process(search_dict[key])
+
+    return search_dict
 
 
 def list_field_to_dict(list_field):
