@@ -6,7 +6,7 @@ import pytz
 
 import requests
 
-from app import database as db
+from app import db
 
 def mongo_to_dict(obj):
     """Get dictionary from mongoengine object
