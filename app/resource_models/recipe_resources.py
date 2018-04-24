@@ -1,12 +1,13 @@
 from flask import jsonify, request, abort, Response, make_response
-from flask_restful import Resource
-from flask_mongoalchemy import ValidationError
+from flask_restful import Resource, Api
+#from flask_mongoalchemy import ValidationError
 
 import pdb
 import requests
 
 from app import db
 from app.helper_functions.conversions import *
+from app.document_models.recipe_documents import Recipe
 
 class RecipeAPI(Resource):
 
@@ -33,18 +34,22 @@ class RecipeAPI(Resource):
 
             return recipes_list
 
-    def post(self):
+    def post(self, request):
         """ Adds a recipe to the database through args or form """
         received_data = request_to_dict(request)
-        try:
-            new_recipe = db.Recipe(**received_data)
-            new_event.save()
-        except ValidationError as error:
-            return {'error_type': 'validation',
-                    'validation_errors': [str(err) for err in error.errors],
-                    'error_message': error.message}, 400
-        else:  # return success
-            return mongo_to_dict(new_event), 201
+        print('the received data')
+        new_recipe = Recipe(**recieved_data)
+        new_recipe.save()
+        return mongo_to_dict(new_recipe), 201
+#        try:
+#            new_recipe = db.Recipe(**received_data)
+#            new_event.save()
+#        except ValidationError as error:
+#            return {'error_type': 'validation',
+#                    'validation_errors': [str(err) for err in error.errors],
+#                    'error_message': error.message}, 400
+#        else:  # return success
+            #return mongo_to_dict(new_event), 201
 
     def put(self):
         """ Modify a recipe """
@@ -53,3 +58,4 @@ class RecipeAPI(Resource):
     def delete(self):
         """ Delete a recipe """
         pass
+
