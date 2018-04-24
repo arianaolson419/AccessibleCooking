@@ -45,19 +45,19 @@ class Recipe(db.Document):
 					List of references to Tips
 	"""
 
-	recipe_id = db.ObjectIdField()
+	recipe_id = db.ObjectIdField(required=False)
 	recipe_name = db.StringField(required=True)
 	description = db.StringField(required=True)
-	submitter = db.StringField()
+	submitter = db.StringField(required=False)
 
-	difficulty = db.IntField()
-	time = db.StringField()
-	servings = db.StringField()
+	difficulty = db.IntField(required=False)
+	time = db.StringField(required=False)
+	servings = db.StringField(required=False)
 
 	equipment = db.ListField(db.StringField())
 	ingredients = db.ListField(db.StringField())
 	instruction = db.ListField(db.StringField())
 	tags = db.ListField(db.StringField())
 
-	media_url = db.AnythingField()
+	media_url = db.StringField(required=False)
 	tips = db.ListField(db.AnythingField(Tip))
