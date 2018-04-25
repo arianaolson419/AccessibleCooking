@@ -1,5 +1,6 @@
 from flask_mongoalchemy import *
 from .tip_documents import Tip
+from app.helper_functions.query_helpers import RecipeQuery
 from app import db
 
 class Recipe(db.Document):
@@ -44,6 +45,7 @@ class Recipe(db.Document):
 	tips			Tips related to recipe. Optional.
 					List of references to Tips
 	"""
+	query_class = RecipeQuery
 	recipe_name = db.StringField(required=True)
 	description = db.StringField(required=True)
 	submitter = db.StringField(required=False)
@@ -54,8 +56,8 @@ class Recipe(db.Document):
 
 	equipment = db.ListField(db.StringField(required=False))
 	ingredients = db.ListField(db.StringField(required=False))
-	instruction = db.ListField(db.StringField(required=False))
+	instructions = db.ListField(db.StringField(required=False))
 	tags = db.ListField(db.StringField(required=False))
 
 	media_url = db.AnythingField(required=False)
-	tips = db.ListField(db.AnythingField(required=False))
+	tips = db.ListField(db.DocumentField(Tip, required=False), required = False)

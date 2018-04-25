@@ -4,7 +4,7 @@ import logging
 import pdb
 import pytz
 
-import requests
+# import requests
 
 from app import db
 
