@@ -1,4 +1,4 @@
-from flask.ext.mongoalchemy import *
+from flask_mongoalchemy import *
 
 import logging
 import pdb

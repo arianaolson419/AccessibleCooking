@@ -46,6 +46,7 @@ class Recipe(db.Document):
 					List of references to Tips
 	"""
 	query_class = RecipeQuery
+
 	recipe_name = db.StringField(required=True)
 	description = db.StringField(required=True)
 	submitter = db.StringField(required=False)
@@ -59,5 +60,5 @@ class Recipe(db.Document):
 	instructions = db.ListField(db.StringField(required=False))
 	tags = db.ListField(db.StringField(required=False))
 
-	media_url = db.AnythingField(required=False)
+	media_url = db.StringField(required=False)
 	tips = db.ListField(db.DocumentField(Tip, required=False), required = False)
