@@ -14,7 +14,7 @@ def recipe():
     recipes = Recipe.query.all()
     content = '<h1>Recipes</h1><ol>'
     for recipe in recipes:
-        content += '<li>{}</li>'.format(recipe)
+        content += '<li>{}</li>'.format(recipe.recipe_name)
     content += '</ol>'
     return content
 
@@ -42,6 +42,12 @@ def add_new_recipe():
         return render_template('upload_recipe_success.html')
     # Render the upload recipe form in the case of GET method.
     return render_template('upload_recipe_form.html')
+
+@app.route('/cookies')
+def cookie_page():
+	search_dict = {'recipe_name':'cookie'}
+	cookie = Recipe.query.recipe_from_dict(search_dict).first()
+	return render_template('recipe_page.html', recipe=cookie)
 
 @app.route('/upload_tip', methods=['GET', 'POST'])
 def add_new_tip():
