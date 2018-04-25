@@ -6,3 +6,4 @@ app.config['MONGOALCHEMY_DATABASE'] = 'recipes'
 db = MongoAlchemy(app)
 
 from app import routes
+
