@@ -18,6 +18,10 @@ def recipe():
     content += '</ol>'
     return content
 
+@app.route('/recipe/<recipeid>')
+def display_recipe(recipeid):
+    return render_template('recipe_page.html')
+
 @app.route('/upload_recipe', methods=['GET', 'POST'])
 def add_new_recipe():
     """Uses form input to add a new recipe to the database.
