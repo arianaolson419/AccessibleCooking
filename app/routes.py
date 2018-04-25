@@ -35,7 +35,7 @@ def add_new_recipe():
                 ingredients=request_dict['ingredients'].split('\n'),
                 equipment=request_dict['equipment'].split('\n'),
                 instructions=request_dict['instructions'].split('\n'),
-                tags=list(request_dict['tag']),
+                tags=[request_dict['tag']],
                 tips=[])
         new_recipe.save()
         return render_template('upload_recipe_success.html')
