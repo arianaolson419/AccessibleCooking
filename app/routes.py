@@ -35,6 +35,7 @@ def add_new_recipe():
                 ingredients=request_dict['ingredients'].split('\n'),
                 equipment=request_dict['equipment'].split('\n'),
                 instructions=request_dict['instructions'].split('\n'),
+                difficulty=request_dict['difficulty'],
                 tags=[request_dict['tag']],
                 tips=[])
         new_recipe.save()

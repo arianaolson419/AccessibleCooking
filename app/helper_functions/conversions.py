@@ -117,4 +117,7 @@ def request_to_dict(request):
     if request.is_json:
         req_dict = request.get_json()  # get_dict returns python dictionary object
     obj_dict = {k: v for k, v in req_dict.items() if v != ""}
+    if 'difficulty' in obj_dict:
+        mapping = {'intermediate':2, 'beginner':1, 'advanced':3}
+        obj_dict['difficulty'] = mapping[obj_dict['difficulty']]
     return obj_dict
