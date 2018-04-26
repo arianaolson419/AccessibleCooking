@@ -43,11 +43,11 @@ def add_new_recipe():
     # Render the upload recipe form in the case of GET method.
     return render_template('upload_recipe_form.html')
 
-@app.route('/cookies')
-def cookie_page():
-	search_dict = {'recipe_name':'cookie'}
-	cookie = Recipe.query.recipe_from_dict(search_dict).first()
-	return render_template('recipe_page.html', recipe=cookie)
+@app.route('/<recipe_type>')
+def cookie_page(recipe_type):
+	search_dict = {'recipe_name':recipe_type}
+	recipe = Recipe.query.recipe_from_dict(search_dict).first()
+	return render_template('recipe_page.html', recipe=recipe)
 
 @app.route('/upload_tip', methods=['GET', 'POST'])
 def add_new_tip():
