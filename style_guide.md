@@ -21,8 +21,8 @@ Less is more. People using screen readers have to sit through the whole text bei
 
 * Visual cues are often completely inaccessible, especially for newer cooks who don’t have the experience to know when something is “browned”. Knowing how to replace visual cues comes down to experience, and if you need help on how to rephrase a cue, feel free to contact us! However, here are some common visual cues and ways to replace them:
 
-** Cook onions until translucent
+  * Cook onions until translucent
 
-*** Cook onions until they start to smell sweet or caramelized, and become flexible.
+    * Cook onions until they start to smell sweet or caramelized, and become flexible.
 
 * Many times, a more tactile technique is better than the faster technique. For example, instead of throwing all the ingredients into a mixer, it is better to suggest, especially for newer cooks, to use a whisk or their hands to mix, so to feel when everything is fully mixed.
