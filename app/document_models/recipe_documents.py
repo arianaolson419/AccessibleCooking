@@ -62,3 +62,6 @@ class Recipe(db.Document):
 
 	media_url = db.StringField(required=False)
 	tips = db.ListField(db.DocumentField(Tip, required=False), required = False)
+
+	def get_id(self):
+		return str(self.mongo_id)

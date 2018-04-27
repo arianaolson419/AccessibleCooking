@@ -1,6 +1,7 @@
-from flask import render_template, jsonify, request
+from flask import flash, render_template, jsonify, request
 from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
+from app.forms import RecipeSearchForm
 from app import app
 from app.helper_functions.conversions import request_to_dict
 
@@ -17,6 +18,28 @@ def recipe():
         content += '<li>{}</li>'.format(recipe.recipe_name)
     content += '</ol>'
     return content
+
+@app.route('/search', methods=['GET', 'POST'])
+def search_page():
+	search = RecipeSearchForm(request.form)
+	if request.method == 'POST':
+		return search_results(search)
+
+	return render_template('search.html', form=search)
+
+@app.route('/results')
+def search_results(search):
+	results = []
+	search_string = search.data['search']
+
+	if search.data['search'] == '':
+		results = Recipe.query.all()
+
+	if not results:
+		flash('No results found!')
+		return redirect('/')
+	else:
+		return render_template('results.html', results=results)
 
 @app.route('/upload_recipe', methods=['GET', 'POST'])
 def add_new_recipe():
@@ -43,10 +66,15 @@ def add_new_recipe():
     # Render the upload recipe form in the case of GET method.
     return render_template('upload_recipe_form.html')
 
-@app.route('/<recipe_type>')
-def cookie_page(recipe_type):
-	search_dict = {'recipe_name':recipe_type}
-	recipe = Recipe.query.recipe_from_dict(search_dict).first()
+# @app.route('/<recipe_type>')
+# def cookie_page(recipe_type):
+# 	search_dict = {'recipe_name':recipe_type}
+# 	recipe = Recipe.query.recipe_from_dict(search_dict).first()
+# 	return render_template('recipe_page.html', recipe=recipe)
+
+@app.route('/<recipe_id>')
+def specific_recipe(recipe_id):
+	recipe = Recipe.query.get_or_404(recipe_id)
 	return render_template('recipe_page.html', recipe=recipe)
 
 @app.route('/upload_tip', methods=['GET', 'POST'])
