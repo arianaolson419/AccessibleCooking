@@ -19,7 +19,7 @@ Less is more. People using screen readers have to sit through the whole text bei
 
 ## How to write your recipe to be more accessible
 
-* Visual cues are often completely inaccessible, especially for newer cooks who don’t have the experience to know when something is “browned”. Knowing how to replace visual cues comes down to experience, and if you need help on how to rephrase a cue, feel free to contact us! However, here are some common visual cues and ways to replace them:
+* Visual cues are often completely inaccessible, especially for newer cooks who don’t have the experience to know when something is “browned”. Knowing how to replace visual cues comes down to experience, but here are some common visual cues and ways to replace them:
 
   * Cook onions until translucent
 
