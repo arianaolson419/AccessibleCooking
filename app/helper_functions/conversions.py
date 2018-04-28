@@ -121,3 +121,13 @@ def request_to_dict(request):
         mapping = {'intermediate':2, 'beginner':1, 'advanced':3}
         obj_dict['difficulty'] = mapping[obj_dict['difficulty']]
     return obj_dict
+
+def form_to_recipe_dict(formdata):
+    mapping = {'search':'recipe_name',
+                'tag_select':'tags'}
+    search_dict = {}
+    print(formdata)
+    for key, val in formdata.items():
+        if key not in ['select'] and val != []: # expand this as needed
+            search_dict[mapping[key]] = val
+    return search_dict

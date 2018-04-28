@@ -3,7 +3,7 @@ from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
 from app.forms import RecipeSearchForm
 from app import app
-from app.helper_functions.conversions import request_to_dict
+from app.helper_functions.conversions import request_to_dict, form_to_recipe_dict
 
 @app.route('/')
 @app.route('/index')
@@ -33,10 +33,7 @@ def search_results(search):
 	s_form = RecipeSearchForm(request.form)
 
 	if search.data['select'] == 'Recipe':
-		search_dict = {
-			'recipe_name': search.data['search'],
-			'tags': search.data['tag_select']
-		}
+		search_dict = form_to_recipe_dict(search.data)
 		results = Recipe.query.recipe_from_dict(search_dict)
 
 	if not results:
