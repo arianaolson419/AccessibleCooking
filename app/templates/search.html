@@ -21,6 +21,21 @@
 		{{ render_field(form.select) }}
 		<br>
 		{{ render_field(form.search) }}
+		<br>
+		{{ render_field(form.tag_select) }}
 	</dl>
-	<p>input type=submit value=Search></p>
+	<p><input type="submit" value=Search></p>
 </form>
+
+<body>
+	{% if results %}
+	<dl>
+		{% for result in results %}
+		<dt><a href="/{{result.get_id()}}">{{result.recipe_name}}</a></dt>
+		<dd>{{result.description}}</dd>
+		{% endfor %}
+	</dl>
+	{% else %}
+	<p>No results found</p>
+	{% endif %}
+</body>

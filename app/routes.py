@@ -27,19 +27,23 @@ def search_page():
 
 	return render_template('search.html', form=search)
 
-@app.route('/results')
 def search_results(search):
 	results = []
 	search_string = search.data['search']
+	s_form = RecipeSearchForm(request.form)
 
-	if search.data['search'] == '':
-		results = Recipe.query.all()
+	if search.data['select'] == 'Recipe':
+		search_dict = {
+			'recipe_name': search.data['search'],
+			'tags': search.data['tag_select']
+		}
+		results = Recipe.query.recipe_from_dict(search_dict)
 
 	if not results:
 		flash('No results found!')
 		return redirect('/')
 	else:
-		return render_template('results.html', results=results)
+		return render_template('search.html', form=s_form, results=results)
 
 @app.route('/upload_recipe', methods=['GET', 'POST'])
 def add_new_recipe():

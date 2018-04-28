@@ -19,7 +19,7 @@ class RecipeQuery(BaseQuery):
 
         query_recipes = {}
         for key, pattern in params_recipe.items():
-            if key in search_dict.keys():
+            if key in search_dict.keys() and search_dict[key] != []:
                 query_recipes.update(pattern(search_dict[key]))
 
         return self.filter(query_recipes)
