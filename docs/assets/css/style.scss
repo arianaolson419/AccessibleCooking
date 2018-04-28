@@ -1,0 +1,26 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+header li {
+  width:auto;
+  height:40px;
+  margin-top:10px;
+  float:none;
+  border-right:0px;
+  border-bottom:1px solid #e0e0e0;
+}
+
+header li:lastchild a {
+  border-bottom:0px;
+}
+
+header ul {
+  height:auto;
+}
+
+header ul li + li + li {
+  border-right:none;
+  width:auto;
+}
