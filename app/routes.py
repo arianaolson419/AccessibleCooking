@@ -24,6 +24,7 @@ def add_new_recipe():
     """
     if request.method == 'POST':
         request_dict = request_to_dict(request)
+        print(request_dict['tag'])
         # TODO: separate into smaller functions
         
         # TODO: implement error handling and required fields in form.
@@ -35,8 +36,8 @@ def add_new_recipe():
                 ingredients=request_dict['ingredients'].split('\n'),
                 equipment=request_dict['equipment'].split('\n'),
                 instructions=request_dict['instructions'].split('\n'),
-                tags=[request_dict['tag']],
-                tips=[])
+                tags=request_dict['tag'])
+                # TODO: add tips
         new_recipe.save()
         return render_template('upload_recipe_success.html')
     # Render the upload recipe form in the case of GET method.
