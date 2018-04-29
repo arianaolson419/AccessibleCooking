@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if ps -edaf | grep mongo | grep -v grep ; then 
+	echo "on"
+	FLASK_APP=main.py flask run
+else
+	sudo service mongod start
+	sleep 1
+	FLASK_APP=main.py flask run
+fi
