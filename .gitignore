@@ -1,0 +1,4 @@
+*.lock
+*.pyc
+__pycache__/
+docs/_site/
