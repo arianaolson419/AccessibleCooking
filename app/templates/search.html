@@ -1,0 +1,41 @@
+<doctype html>
+<head>
+	<title>Recipe Database Search</title>
+</head>
+
+<h1>Search Recipes</h1>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% from "_formhelpers.html" import render_field %}
+<form method=post>
+	<dl>
+		{{ render_field(form.select) }}
+		<br>
+		{{ render_field(form.search) }}
+		<br>
+		{{ render_field(form.tag_select) }}
+	</dl>
+	<p><input type="submit" value=Search></p>
+</form>
+
+<body>
+	{% if results %}
+	<dl>
+		{% for result in results %}
+		<dt><a href="/{{result.get_id()}}">{{result.recipe_name}}</a></dt>
+		<dd>{{result.description}}</dd>
+		{% endfor %}
+	</dl>
+	{% else %}
+	<p>No results found</p>
+	{% endif %}
+</body>
