@@ -3,12 +3,8 @@ from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
 from app.forms import RecipeSearchForm
 from app import app
-<<<<<<< HEAD
-from app.helper_functions.conversions import request_to_dict
 from app.helper_functions.media import video_id_from_url
-=======
 from app.helper_functions.conversions import request_to_dict, form_to_recipe_dict
->>>>>>> 845d8a6492965f66ffdabece3d21890a792f95c9
 
 @app.route('/')
 @app.route('/index')
