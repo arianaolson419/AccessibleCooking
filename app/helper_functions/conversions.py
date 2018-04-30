@@ -1,4 +1,6 @@
 from flask_mongoalchemy import *
+from app.document_models.recipe_documents import Recipe
+from app.document_models.tip_documents import Tip
 
 import logging
 import pdb
@@ -125,13 +127,25 @@ def request_to_dict(request):
         # the values with the name 'tag', but none of the other fields.
         if k == 'tag':
             obj_dict[k] = v
-        elif k == 'difficulty':
-            mapping = {'intermediate':2, 'beginner':1, 'advanced':3}
-            obj_dict['difficulty'] = mapping[req_dict['difficulty'][0]]
         else:
             obj_dict[k] = v[0]
     print(obj_dict)
     return obj_dict
+
+def dict_to_recipe(request_dict):
+    new_recipe = Recipe(
+                recipe_name=request_dict['recipe_name'],
+                description=request_dict['description'],
+                ingredients=request_dict['ingredients'].split('\n'),
+                equipment=request_dict['equipment'].split('\n'),
+                instructions=request_dict['instructions'].split('\n'),
+                difficulty=request_dict['difficulty'],
+                servings=request_dict['servings'],
+                time=request_dict['time'],
+                tags=request_dict['tag'],
+                tips=[])
+
+    new_recipe.save()
 
 def form_to_recipe_dict(formdata):
     mapping = {'search':'recipe_name',
