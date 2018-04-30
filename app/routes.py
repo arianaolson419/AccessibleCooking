@@ -83,7 +83,6 @@ def add_new_recipe():
 @app.route('/<recipe_id>')
 def specific_recipe(recipe_id):
         recipe = Recipe.query.get_or_404(recipe_id)
-        print(recipe.time)
         return render_template('recipe_template.html', recipe=recipe)
 
 @app.route('/upload_tip', methods=['GET', 'POST'])
@@ -92,7 +91,6 @@ def add_new_tip():
     """
     if request.method == 'POST':
         request_dict = request_to_dict(request)
-        print('REQUEST DICT', request_dict)
         new_tip = Tip(
                 title=request_dict['tip_name'],
                 text=request_dict['description'],
