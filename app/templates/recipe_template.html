@@ -16,12 +16,9 @@
 
 		{% if recipe.media_type == 'Audio' %}
 		<br>
-		<label for="audio">Audio: Cooking in The Dark Podcast Episode 191</label>
+		<label for="audio">Audio Supplement</label>
 		<br>
-		<audio controls>
-			<source src="audio/cooking-in-the-dark-show-191.mp3" type="audio/mpeg" id="audio">
-			Your browser does not support the audio element.
-		</audio>
+		<a href={{ recipe.media_url }} target="_blank">Navigate to supplemental audio. Opens in new tab</a>
 		{% endif %}
 
 		{% if recipe.media_type == 'No Supplemental Media' %}
