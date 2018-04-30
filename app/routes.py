@@ -3,6 +3,7 @@ from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
 from app import app
 from app.helper_functions.conversions import request_to_dict
+from app.helper_functions.media import video_id_from_url
 
 @app.route('/')
 @app.route('/index')
@@ -24,6 +25,7 @@ def add_new_recipe():
     """
     if request.method == 'POST':
         request_dict = request_to_dict(request)
+        print(request_dict.items())
         # TODO: separate into smaller functions
         
         # TODO: implement error handling and required fields in form.
@@ -36,6 +38,9 @@ def add_new_recipe():
                 equipment=request_dict['equipment'].split('\n'),
                 instructions=request_dict['instructions'].split('\n'),
                 tags=[request_dict['tag']],
+                video_id=video_id_from_url(request_dict['media_url']),
+                media_url=request_dict['media_url'],
+                media_type=request_dict['media_type'],
                 tips=[])
         new_recipe.save()
         return render_template('upload_recipe_success.html')
