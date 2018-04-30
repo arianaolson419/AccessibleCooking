@@ -65,3 +65,6 @@ class Recipe(db.Document):
 
 	def get_id(self):
 		return str(self.mongo_id)
+
+	def link_tips(self):
+		pass

@@ -25,13 +25,11 @@ class Tip(db.Document):
 	aud_vid			Audio/video component. Optional.
 					takes a url
 	"""
-        # TODO: update schema to match tip form fields.
-	tip_id = db.ObjectIdField()
 	title = db.StringField(required=True)
 	text = db.StringField(required=True)
-	submitter = db.StringField(required=True)
+	submitter = db.StringField(required=False)
 
-	related_equip = db.ListField(db.StringField())
-	related_ingr = db.ListField(db.StringField())
+	related_equip = db.ListField(db.StringField(), required=False)
+	related_ingr = db.ListField(db.StringField(), required=False)
 
 	aud_vid = db.AnythingField(required=False)

@@ -38,3 +38,18 @@ class RecipeQuery(BaseQuery):
 
     def has_equip(self, equip):
         return self.filter(self.type.equipment.in_(equip))
+
+class TipQuery(BaseQuery):
+
+    def in_name(self, name):
+        """ Checks for a tip with a similar name """
+        return self.filter(self.type.title.regex(name, ignore_case=True))
+
+    def has_keyword(self, keywords):
+        """ Checks for matching key words in ingredients or equipment 
+            :input:
+            keywords: list of strings 
+        """
+        return self.filter(
+            {'related_equip':{'$in':keywords},
+            'related_ingr':{'$in':keywords}})
