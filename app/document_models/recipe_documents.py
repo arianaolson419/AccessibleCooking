@@ -45,7 +45,7 @@ class Recipe(db.Document):
         media_type               Type of supplemental media provided. Required.
                                         takes a string.
 
-        instruction             Steps of recipe. Optional.
+        instructions             Steps of recipe. Optional.
                                         takes a list of strings.
 
         tips                    Tips related to recipe. Optional.
