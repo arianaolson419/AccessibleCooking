@@ -8,7 +8,7 @@ from app.helper_functions.conversions import request_to_dict, form_to_recipe_dic
 @app.route('/')
 @app.route('/index')
 def index():
-    return jsonify({"Name":"Ariana"})
+    return render_template('about.html')
 
 @app.route('/recipe')
 def recipe():

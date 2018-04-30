@@ -3,6 +3,7 @@ from flask_mongoalchemy import *
 import logging
 import pdb
 import pytz
+import re
 
 # import requests
 
@@ -141,3 +142,20 @@ def form_to_recipe_dict(formdata):
         if key not in ['select'] and val != []: # expand this as needed
             search_dict[mapping[key]] = val
     return search_dict
+
+def check_for_fractions(ingred):
+    replacements = {r" 1\/2":" and a half",
+                    r" 1\/3":" and a third",
+                    r" 1\/4":" and a quarter",
+                    r" 1\/8":" and an eighth",
+                    r" 3\/4":" and three quarters",
+                    r" 2\/3":" and two thirds",
+                    r"^1\/2":"Half",
+                    r"^1\/3":"One third",
+                    r"^1\/4":"One quarter",
+                    r"^1\/8":"One eight",
+                    r"^3\/4":"Three quarters",
+                    r"^2\/3":"Two thirds"}
+    for err, rpl in replacements.items():
+        ingred = re.sub(err, rpl, ingred)
+    return ingred

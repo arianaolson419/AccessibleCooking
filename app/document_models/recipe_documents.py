@@ -1,4 +1,5 @@
 from flask_mongoalchemy import *
+import re
 from .tip_documents import Tip
 from app.helper_functions.query_helpers import RecipeQuery
 from app import db
