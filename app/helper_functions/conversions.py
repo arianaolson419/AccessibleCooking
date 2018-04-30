@@ -113,8 +113,31 @@ def mongo_to_python_type(field, data):
 def request_to_dict(request):
     """Convert incoming flask requests for objects into a dict"""
 
-    req_dict = request.values.to_dict(flat=True)
     if request.is_json:
         req_dict = request.get_json()  # get_dict returns python dictionary object
-    obj_dict = {k: v for k, v in req_dict.items() if v != ""}
+    else:
+        req_dict = request.values.to_dict(flat=False)
+    obj_dict = {}
+    for k, v in req_dict.items():
+        print(k, v)
+        # The to_dict method returns values as lists, which is necessary for
+        # the values with the name 'tag', but none of the other fields.
+        if k == 'tag':
+            obj_dict[k] = v
+        elif k == 'difficulty':
+            mapping = {'intermediate':2, 'beginner':1, 'advanced':3}
+            obj_dict['difficulty'] = mapping[req_dict['difficulty'][0]]
+        else:
+            obj_dict[k] = v[0]
+    print(obj_dict)
     return obj_dict
+
+def form_to_recipe_dict(formdata):
+    mapping = {'search':'recipe_name',
+                'tag_select':'tags'}
+    search_dict = {}
+    print(formdata)
+    for key, val in formdata.items():
+        if key not in ['select'] and val != []: # expand this as needed
+            search_dict[mapping[key]] = val
+    return search_dict

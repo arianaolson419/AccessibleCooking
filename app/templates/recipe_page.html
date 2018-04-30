@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+{%if recipe %}
+	<head>
+	<title>{{recipe.recipe_name}}</title>
+	</head>
+	<body>
+		<h1>{{recipe.recipe_name}}</h1>
+		{% if recipe.media_url %}
+			<h2>Supplemental Media</h2>
+			<label for="video">Video: How the Blind Cook</label>
+			<br>
+			<iframe width="854" height="480"
+			src="https://www.youtube.com/embed/65gqX2QhVRA" frameborder="0"
+			allowfullscreen id="video"></iframe>
+			<br>
+			<label for="audio">Audio: Cooking in The Dark Podcast Episode 191</label>
+			<br>
+			<audio controls>
+				<source src="audio/cooking-in-the-dark-show-191.mp3" type="audio/mpeg" id="audio">
+				Your browser does not support the audio element.
+			</audio>
+		{% endif %}
+		<h2>About</h2>
+		<h3>Description</h3>
+		<p>{{recipe.description}}</p>
+		<h3>Difficulty</h3>
+		<p>{{recipe.difficulty}}</p>
+		<h3>Time</h3>
+		<p>{{recipe.time}}</p>
+		<h3>Servings</h3>
+		<p>{{recipe.servings}}</p>
+		<h2>Equipment</h2>
+			<ul>
+			{% for equip in recipe.equipment %}
+				<li>{{equip}}</li>
+			{% else %}
+				<li>No special equipment needed.</li>
+			{% endfor %}
+			</ul>
+		<h2>Ingredients</h2>
+			<ul>
+			{% for ingredient in recipe.ingredients %}
+				<li>{{ingredient}}</li>
+			{% else %}
+				<li>User did not supply ingredients</li>
+			{% endfor %}
+			</ul>
+		<h2>Instructions</h2>
+			<ol>
+			{% for instruction in recipe.instructions %}
+				<li>{{instruction}}</li>
+			{% else %}
+				<li>User did not supply instructions</li>
+			{% endfor %}
+			</ol>
+	</body>
+{% else %}
+	<head>
+		<title>Cookieless</title>
+	</head>
+	<body>
+		<h1>Cookies?</h1>
+		<p>You have no cookie recipes. What a sad life.</p>
+	</body>
+{% endif %}
+</html>

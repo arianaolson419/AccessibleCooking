@@ -1,9 +1,14 @@
-from flask import render_template, jsonify, request
+from flask import flash, render_template, jsonify, request
 from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
+from app.forms import RecipeSearchForm
 from app import app
+<<<<<<< HEAD
 from app.helper_functions.conversions import request_to_dict
 from app.helper_functions.media import video_id_from_url
+=======
+from app.helper_functions.conversions import request_to_dict, form_to_recipe_dict
+>>>>>>> 845d8a6492965f66ffdabece3d21890a792f95c9
 
 @app.route('/')
 @app.route('/index')
@@ -15,9 +20,32 @@ def recipe():
     recipes = Recipe.query.all()
     content = '<h1>Recipes</h1><ol>'
     for recipe in recipes:
-        content += '<li>{}</li>'.format(recipe)
+        content += '<li>{}</li>'.format(recipe.recipe_name)
     content += '</ol>'
     return content
+
+@app.route('/search', methods=['GET', 'POST'])
+def search_page():
+	search = RecipeSearchForm(request.form)
+	if request.method == 'POST':
+		return search_results(search)
+
+	return render_template('search.html', form=search)
+
+def search_results(search):
+	results = []
+	search_string = search.data['search']
+	s_form = RecipeSearchForm(request.form)
+
+	if search.data['select'] == 'Recipe':
+		search_dict = form_to_recipe_dict(search.data)
+		results = Recipe.query.recipe_from_dict(search_dict)
+
+	if not results:
+		flash('No results found!')
+		return redirect('/')
+	else:
+		return render_template('search.html', form=s_form, results=results)
 
 @app.route('/upload_recipe', methods=['GET', 'POST'])
 def add_new_recipe():
@@ -25,7 +53,6 @@ def add_new_recipe():
     """
     if request.method == 'POST':
         request_dict = request_to_dict(request)
-        print(request_dict.items())
         # TODO: separate into smaller functions
         
         # TODO: implement error handling and required fields in form.
@@ -37,15 +64,28 @@ def add_new_recipe():
                 ingredients=request_dict['ingredients'].split('\n'),
                 equipment=request_dict['equipment'].split('\n'),
                 instructions=request_dict['instructions'].split('\n'),
-                tags=[request_dict['tag']],
                 video_id=video_id_from_url(request_dict['media_url']),
                 media_url=request_dict['media_url'],
                 media_type=request_dict['media_type'],
+                difficulty=request_dict['difficulty'],
+                tags=request_dict['tag'],
                 tips=[])
+
         new_recipe.save()
         return render_template('upload_recipe_success.html')
     # Render the upload recipe form in the case of GET method.
     return render_template('upload_recipe_form.html')
+
+# @app.route('/<recipe_type>')
+# def cookie_page(recipe_type):
+# 	search_dict = {'recipe_name':recipe_type}
+# 	recipe = Recipe.query.recipe_from_dict(search_dict).first()
+# 	return render_template('recipe_page.html', recipe=recipe)
+
+@app.route('/<recipe_id>')
+def specific_recipe(recipe_id):
+	recipe = Recipe.query.get_or_404(recipe_id)
+	return render_template('recipe_page.html', recipe=recipe)
 
 @app.route('/upload_tip', methods=['GET', 'POST'])
 def add_new_tip():
