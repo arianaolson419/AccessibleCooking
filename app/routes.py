@@ -22,26 +22,26 @@ def recipe():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search_page():
-	search = RecipeSearchForm(request.form)
-	if request.method == 'POST':
-		return search_results(search)
+        search = RecipeSearchForm(request.form)
+        if request.method == 'POST':
+                return search_results(search)
 
-	return render_template('search.html', form=search)
+        return render_template('search.html', form=search)
 
 def search_results(search):
-	results = []
-	search_string = search.data['search']
-	s_form = RecipeSearchForm(request.form)
+        results = []
+        search_string = search.data['search']
+        s_form = RecipeSearchForm(request.form)
 
-	if search.data['select'] == 'Recipe':
-		search_dict = form_to_recipe_dict(search.data)
-		results = Recipe.query.recipe_from_dict(search_dict)
+        if search.data['select'] == 'Recipe':
+                search_dict = form_to_recipe_dict(search.data)
+                results = Recipe.query.recipe_from_dict(search_dict)
 
-	if not results:
-		flash('No results found!')
-		return redirect('/')
-	else:
-		return render_template('search.html', form=s_form, results=results)
+        if not results:
+                flash('No results found!')
+                return redirect('/')
+        else:
+                return render_template('search.html', form=s_form, results=results)
 
 @app.route('/upload_recipe', methods=['GET', 'POST'])
 def add_new_recipe():
@@ -57,6 +57,8 @@ def add_new_recipe():
         new_recipe = Recipe(
                 recipe_name=request_dict['recipe_name'],
                 description=request_dict['description'],
+                servings=request_dict['servings'],
+                time=request_dict['time'],
                 ingredients=request_dict['ingredients'].split('\n'),
                 equipment=request_dict['equipment'].split('\n'),
                 instructions=request_dict['instructions'].split('\n'),
@@ -74,14 +76,15 @@ def add_new_recipe():
 
 # @app.route('/<recipe_type>')
 # def cookie_page(recipe_type):
-# 	search_dict = {'recipe_name':recipe_type}
-# 	recipe = Recipe.query.recipe_from_dict(search_dict).first()
-# 	return render_template('recipe_page.html', recipe=recipe)
+#       search_dict = {'recipe_name':recipe_type}
+#       recipe = Recipe.query.recipe_from_dict(search_dict).first()
+#       return render_template('recipe_page.html', recipe=recipe)
 
 @app.route('/<recipe_id>')
 def specific_recipe(recipe_id):
-	recipe = Recipe.query.get_or_404(recipe_id)
-	return render_template('recipe_page.html', recipe=recipe)
+        recipe = Recipe.query.get_or_404(recipe_id)
+        print(recipe.time)
+        return render_template('recipe_template.html', recipe=recipe)
 
 @app.route('/upload_tip', methods=['GET', 'POST'])
 def add_new_tip():
