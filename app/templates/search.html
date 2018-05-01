@@ -32,14 +32,14 @@
 	<dl>
 		{% if search_type == 'recipe' %}
 		{% for result in results %}
-		<dt><a href="{{search_type}}/{{result.get_id()}}">{{result.recipe_name}}</a></dt>
+		<dt><a href="/{{search_type}}/{{result.get_id()}}">{{result.recipe_name}}</a></dt>
 		<dd>{{result.description}}</dd>
 		{% endfor %}
 		{% endif %}
 
 		{% if search_type == 'tip' %}
 		{% for result in results %}
-		<dt><a href="{{search_type}}/{{result.get_id()}}">{{result.tip_name}}</a></dt>
+		<dt><a href="/{{search_type}}/{{result.get_id()}}">{{result.tip_name}}</a></dt>
 		<dd>{{result.description}}</dd>
 		{% endfor %}
 		{% endif %}
