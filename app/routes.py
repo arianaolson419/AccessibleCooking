@@ -1,4 +1,4 @@
-from flask import flash, render_template, jsonify, request
+from flask import flash, render_template, jsonify, request, redirect
 from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
 from app.forms import RecipeSearchForm
@@ -17,6 +17,7 @@ def recipe():
     content = '<h1>Recipes</h1><ol>'
     for recipe in recipes:
         content += '<li>{}</li>'.format(recipe.recipe_name)
+        print([tip.tip_name for tip in recipe.tips])
     content += '</ol>'
     return content
 
@@ -58,6 +59,31 @@ def search_results(search):
         else:
                 return render_template('search.html', form=s_form, results=results, search_type=search_type)
 
+@app.route('/edit_recipe/<recipe_id>', methods=['GET', 'POST'])
+def edit_recipe(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    tips = [tip.get_id() for tip in recipe.tips]
+    if request.method == 'GET':
+        return render_template('edit_recipe.html', recipe=recipe, tips=tips)
+    if request.method == 'POST':
+        request_dict = request_to_dict(request)
+        linked_tips = [Tip.query.get(tiplink) for tiplink in request_dict['tiplinks'].split('\n')]
+        recipe.tips = [tip for tip in linked_tips if tip is not None]
+        recipe.recipe_name = request_dict['recipe_name']
+        recipe.media_type = request_dict['media_type']
+        recipe.media_url = request_dict['media_url']
+        recipe.video_id = video_id_from_url(request_dict['media_url'])
+        recipe.difficulty = request_dict['difficulty']
+        recipe.description = request_dict['description']
+        recipe.time = request_dict['time']
+        recipe.servings = request_dict['servings']
+        recipe.equipment = request_dict['equipment'].split('\n')
+        recipe.ingredients = request_dict['ingredients'].split('\n')
+        recipe.instructions = request_dict['instructions'].split('\n')
+        recipe.tags = request_dict['tag']
+        recipe.save()
+        return redirect('/recipe/' + recipe.get_id())
+    
 @app.route('/upload_recipe', methods=['GET', 'POST'])
 def add_new_recipe():
     """Uses form input to add a new recipe to the database.
