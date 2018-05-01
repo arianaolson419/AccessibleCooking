@@ -57,7 +57,7 @@ class Recipe(db.Document):
         description = db.StringField(required=True)
         submitter = db.StringField(required=False)
 
-        difficulty = db.IntField(required=False)
+        difficulty = db.StringField(required=False)
         time = db.StringField(required=False)
         servings = db.StringField(required=False)
 
