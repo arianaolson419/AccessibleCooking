@@ -9,8 +9,8 @@ class MultiCheckboxField(SelectMultipleField):
 	option_widget = widgets.CheckboxInput()
 
 class RecipeSearchForm(Form):
-	choices = [('Recipe', 'Recipes'),
-				('Tip', 'Tips')]
+	choices = [('recipe', 'Recipes'),
+				('tip', 'Tips')]
 	tags = [('Dinner', 'Dinner'),
 			('Breakfast', 'Breakfast'),
 			('Lunch', 'Lunch'),

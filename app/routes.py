@@ -5,7 +5,7 @@ from app.forms import RecipeSearchForm
 from app import app
 
 from app.helper_functions.media import video_id_from_url
-from app.helper_functions.conversions import request_to_dict, form_to_recipe_dict, dict_to_recipe
+from app.helper_functions.conversions import request_to_dict, form_to_recipe_dict, form_to_tip_dict, dict_to_recipe
 
 @app.route('/')
 @app.route('/index')
@@ -17,6 +17,15 @@ def recipe():
     s_form = RecipeSearchForm(request.form)
     recipes = Recipe.query.all()
     return render_template('search.html', form=s_form, results=recipes)
+
+@app.route('/tip')
+def tip():
+    tips = Tip.query.all()
+    content = '<h1>Tips</h1><ol>'
+    for tip in tips:
+        content += '<li>{}: {}</li>'.format(tip.tip_name, tip.get_id())
+    content += '</ol>'
+    return content
 
 @app.route('/search', methods=['GET', 'POST'])
 def search_page():
@@ -31,15 +40,19 @@ def search_results(search):
     search_string = search.data['search']
     s_form = RecipeSearchForm(request.form)
 
-    if search.data['select'] == 'Recipe':
+    if search.data['select'] == 'recipe':
         search_dict = form_to_recipe_dict(search.data)
         results = Recipe.query.recipe_from_dict(search_dict)
 
+    elif search.data['select'] == 'tip':
+        search_dict = form_to_tip_dict(search.data)
+        results = Tip.query.tip_from_dict(search_dict)
+
     if not results:
-        flash('No results found!')
-        return redirect('/')
+            flash('No results found!')
+            return redirect('/')
     else:
-        return render_template('search.html', form=s_form, results=results)
+            return render_template('search.html', form=s_form, results=results, search_type=search.data['select'])
 
 @app.route('/upload_recipe', methods=['GET', 'POST'])
 def add_new_recipe():
@@ -51,24 +64,39 @@ def add_new_recipe():
         return render_template('upload_recipe_success.html')
     # Render the upload recipe form in the case of GET method.
     return render_template('upload_recipe_form.html')
-#       return render_template('recipe_page.html', recipe=recipe)
 
-@app.route('/<recipe_id>')
+
+@app.route('/upload_tip', methods=['GET', 'POST'])
+def add_new_tip():
+    """Uses form input to add a new recipe to the database.
+    """
+    if request.method == 'POST':
+        request_dict = request_to_dict(request)
+        print(request_dict)
+        # TODO: implement required fields and error handling.
+        new_tip = Tip(
+                tip_name=request_dict['tip_name'],
+                media_type=request_dict['media_type'],
+                media_url=request_dict['media_url'],
+                video_id=video_id_from_url(request_dict['media_url']),
+                difficulty=request_dict['difficulty'],
+                description=request_dict['description'],
+                equipment=request_dict['equipment'].split('\n'),
+                ingredients=request_dict['ingredients'].split('\n'),
+                instructions=request_dict['instructions'].split('\n'),
+                tags=request_dict['tag'])
+
+        new_tip.save()
+        return render_template('upload_tip_success.html')
+    return render_template('upload_tip_form.html')
+
+@app.route('/recipe/<recipe_id>')
 def specific_recipe(recipe_id):
         recipe = Recipe.query.get_or_404(recipe_id)
         return render_template('recipe_template.html', recipe=recipe)
 
-@app.route('/upload_tip', methods=['GET', 'POST'])
-def add_new_tip():
-    """Uses form input to add a new tip to the database.
-    """
-    if request.method == 'POST':
-        request_dict = request_to_dict(request)
-        new_tip = Tip(
-                title=request_dict['tip_name'],
-                text=request_dict['description'],
-                submitter='Ariana',
-                related_equip=request_dict['equipment'].split('\n'),
-                related_ingr=request_dict['equipment'].split('\n'))
-        return render_template('upload_tip_success.html')
-    return render_template('upload_tip_form.html')
+@app.route('/tip/<tip_id>')
+def specific_tip(tip_id):
+    tip = Tip.query.get_or_404(tip_id)
+    return render_template('tip_template.html', tip=tip)
+

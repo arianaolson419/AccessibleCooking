@@ -15,13 +15,13 @@
             <div name="medialink" id="medialink">
                 <label for="medialink">Optional: Provide Supplemental Audio or Video for the Tip</label>
                 <br>
-                <input type="radio" name="mediatype" id="audio" value="Audio">
+                <input type="radio" name="media_type" id="audio" value="Audio">
                 <label for="audio">Audio</label>
                 <br>
-                <input type="radio" name="mediatype" id="video" value="Video">
+                <input type="radio" name="media_type" id="video" value="Video">
                 <label for="video">Video</label>
                 <br>
-                <input type="radio" name="mediatype" id="nomedia" value="No Supplemental Media">
+                <input type="radio" name="media_type" id="nomedia" value="No Supplemental Media">
                 <label for="nomedia">No Supplemental Media</label>
                 <br>
                 <label for="media_url">Link:</label>
@@ -49,20 +49,29 @@
                 <br>
                 <label for="tipdetails">Tip Details</label>
                 <br>
-                <label for="equipment">Equipment and ingredients:</label>
+                <label for="equipment">Equipment:</label>
                 <br>
                 <textarea 
                     name="equipment" 
                     id="equipment"
                     rows="10"
                     cols="50"
-                    placeholder="Type each ingredient or piece of equipment on its own line"></textarea>
+                    placeholder="Type each piece of equipment on its own line"></textarea>
                 <br>
-                <label for="instruction">Procedure:</label>
+                <label for="ingredients">Ingredients:</label>
+                <br>
+                <textarea 
+                    name="ingredients" 
+                    id="ingredients"
+                    rows="10"
+                    cols="50"
+                    placeholder="Type each ingredient its own line"></textarea>
+                <br>
+                <label for="instructions">Indtructions:</label>
                 <br>
                 <textarea
-                    name="instruction"
-                    id="instruction"
+                    name="instructions"
+                    id="instructions"
                     rows="10" cols="50"
                     placeholder="Type each instruction on its own line"></textarea>
                 <br>
@@ -87,9 +96,7 @@
                     <br>
                 </div>
             </div>
-            <br>
-            <input type="button" name="review_tip" value="Review Tip">
-            <br><br>
+	    <br><br>
             <input type="submit" name="submit_tip" value="Submit Tip">
     </form>
 </body>

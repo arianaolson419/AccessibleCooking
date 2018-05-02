@@ -18,7 +18,7 @@
 		<br>
 		<label for="audio">Audio Supplement</label>
 		<br>
-		<a href={{ recipe.media_url }} target="_blank">Navigate to supplemental audio. Opens in new tab</a>
+		<a href={{ recipe.media_url }} target="_blank" id="audio">Navigate to supplemental audio. Opens in new tab.</a>
 		{% endif %}
 
 		{% if recipe.media_type == 'No Supplemental Media' %}
@@ -57,6 +57,14 @@
 			<li>There are no instructions for this recipe.</li>
 			{% endfor %}
 		</ol>
+		<h2>Related Tips</h2>
+		<ul>
+			{% for tip in recipe.tips %}
+			<li><a href={{ "/" + tip.get_id() }} target="_blank">{{ tip.name }}</a></li>
+			{% else %}
+			<li>There are currently no related tips associated with this recipe.</li>
+			{% endfor %}
+		</ul>
 	</body>
 
 </html>

@@ -39,11 +39,29 @@ class RecipeQuery(BaseQuery):
     def has_equip(self, equip):
         return self.filter(self.type.equipment.in_(equip))
 
+
 class TipQuery(BaseQuery):
+
+    def tip_from_dict(self, search_dict):
+        """Looks for matches from a search dictionary
+        """
+        params_tip = {
+                'tip_name': lambda name: {'tip_name': {'$options': 'i', '$regex': name}},
+                'tags': lambda tags: {'tags': {'$in': tags}},
+                'ingredients': lambda ingredients: {'tags': {'$in': ingredients}},
+                'equipment': lambda equip: {'tags': {'$in': equip}}
+        }
+
+        query_tips = {}
+        for key, pattern in params_tip.items():
+            if key in search_dict.keys() and search_dict[key] != []:
+                query_tips.update(pattern(search_dict[key]))
+
+        return self.filter(query_tips)
 
     def in_name(self, name):
         """ Checks for a tip with a similar name """
-        return self.filter(self.type.title.regex(name, ignore_case=True))
+        return self.filter(self.type.tip_name.regex(name, ignore_case=True))
 
     def has_keyword(self, keywords):
         """ Checks for matching key words in ingredients or equipment 
@@ -51,5 +69,6 @@ class TipQuery(BaseQuery):
             keywords: list of strings 
         """
         return self.filter(
-            {'related_equip':{'$in':keywords},
-            'related_ingr':{'$in':keywords}})
+            {'equipment':{'$in':keywords},
+            'ingredients':{'$in':keywords}})
+
