@@ -71,6 +71,36 @@ def request_to_recipe_search(request):
 
     return search_dict
 
+def request_to_tip_search(request):
+    """ Build search dictionary based on get parameters """
+    if isinstance(request, dict):
+        req_dict = request
+    else:
+        req_dict = request_to_dict(request)
+
+    split_to_list = lambda a: a if isinstance(a, list) else a.split(',')
+
+    difficulties = {
+        'beginner': ['beginner'],
+        'intermediate': ['intermediate'],
+        'advanced': ['advanced'],
+    }
+
+    preprocessing = {
+        'tip_name':split_to_list,
+        'ingredients':split_to_list,
+        'equipment':split_to_list,
+        'tags':split_to_list,
+        'tags_not':split_to_list,
+        'difficulty':lambda a: difficulties.get(a, None),
+    }
+
+    search_dict = req_dict
+    for key, process in preprocessing.items():
+        if key in search_dict.keys():
+            search_dict[key] = process(search_dict[key])
+
+    return search_dict
 
 def list_field_to_dict(list_field):
     """
@@ -125,8 +155,7 @@ def request_to_dict(request):
         if k == 'tag':
             obj_dict[k] = v
         elif k == 'difficulty':
-            mapping = {'intermediate':2, 'beginner':1, 'advanced':3}
-            obj_dict['difficulty'] = mapping[req_dict['difficulty'][0]]
+            obj_dict['difficulty'] = req_dict['difficulty'][0]
         else:
             obj_dict[k] = v[0]
     print(obj_dict)
@@ -141,3 +170,24 @@ def form_to_recipe_dict(formdata):
         if key not in ['select'] and val != []: # expand this as needed
             search_dict[mapping[key]] = val
     return search_dict
+
+def form_to_tip_dict(formdata):
+    mapping = {'search':'tip_name',
+                'tag_select':'tags'}
+    search_dict = {}
+    print(formdata)
+    for key, val in formdata.items():
+        if key not in ['select'] and val != []: # expand this as needed
+            search_dict[mapping[key]] = val
+    return search_dict
+
+def get_all_recipe_text(recipe_obj):
+    """Create a large string of the text in a recipe's equipment, ingredient,
+    and instruction lists to be used for searching for relevant tags.
+    """
+    # All of the fields listed give lists of strings.
+    fields = ['ingredients', 'equipment', 'instructions']
+    recipe_text = ''
+    for field in fields:
+        recipe_text += ' '.join([recipe_obj[field]])
+    return recipe_text

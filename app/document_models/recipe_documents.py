@@ -45,7 +45,7 @@ class Recipe(db.Document):
         media_type               Type of supplemental media provided. Required.
                                         takes a string.
 
-        instruction             Steps of recipe. Optional.
+        instructions             Steps of recipe. Optional.
                                         takes a list of strings.
 
         tips                    Tips related to recipe. Optional.
@@ -57,7 +57,7 @@ class Recipe(db.Document):
         description = db.StringField(required=True)
         submitter = db.StringField(required=False)
 
-        difficulty = db.IntField(required=False)
+        difficulty = db.StringField(required=False)
         time = db.StringField(required=False)
         servings = db.StringField(required=False)
 
