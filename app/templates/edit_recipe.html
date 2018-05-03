@@ -1,8 +1,8 @@
-<doctype html>
-<head>
+{% extends 'layout.html' %}
+{% block title %}
 	<title>Edit Recipe</title>
-</head>
-<body>
+{% endblock %}
+{% block body %}
 	<h1>Edit Recipes</h1>
 
 	<ol id="demo"></ol>
@@ -157,4 +157,4 @@
 		<br><br>
 		<input type="submit" name="submit_recipe" value="Revise Recipe">
 	</form>
-</body>
+{% endblock %}

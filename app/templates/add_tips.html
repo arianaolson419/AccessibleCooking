@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<head>
+{% extends 'layout.html' %}
+{% block title %}
 		<title>Add Tips</title>
-	</head>
-	<body>
+{% endblock %}
+{% block body %}
 		<h1>Add Tips to Recipe</h1>
 		<h2>Tips available</h2>
 		<form id="add_tips_form" method="post">
@@ -60,5 +59,4 @@
 			<input type="submit" name="add_tips" value="Add Tips">
 		</form>
 
-	</body>
-</html>
+{% endblock %}
