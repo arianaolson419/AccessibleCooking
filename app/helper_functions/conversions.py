@@ -1,8 +1,11 @@
 from flask_mongoalchemy import *
+from app.document_models.recipe_documents import Recipe
+from app.document_models.tip_documents import Tip
 
 import logging
 import pdb
 import pytz
+import re
 
 # import requests
 
@@ -152,14 +155,30 @@ def request_to_dict(request):
         print(k, v)
         # The to_dict method returns values as lists, which is necessary for
         # the values with the name 'tag', but none of the other fields.
-        if k == 'tag':
+        if k == 'tag' or k == 'tip':
             obj_dict[k] = v
         elif k == 'difficulty':
             obj_dict['difficulty'] = req_dict['difficulty'][0]
         else:
-            obj_dict[k] = v[0]
+            obj_dict[k] = check_for_fractions(v[0])
     print(obj_dict)
     return obj_dict
+
+def dict_to_recipe(request_dict):
+    new_recipe = Recipe(
+                recipe_name=request_dict['recipe_name'],
+                description=request_dict['description'],
+                ingredients=request_dict['ingredients'].split('\n'),
+                equipment=request_dict['equipment'].split('\n'),
+                instructions=request_dict['instructions'].split('\n'),
+                difficulty=request_dict['difficulty'],
+                servings=request_dict['servings'],
+                time=request_dict['time'],
+                tags=request_dict['tag'],
+                tips=[])
+
+    new_recipe.save()
+    return new_recipe
 
 def form_to_recipe_dict(formdata):
     mapping = {'search':'recipe_name',
@@ -170,6 +189,39 @@ def form_to_recipe_dict(formdata):
         if key not in ['select'] and val != []: # expand this as needed
             search_dict[mapping[key]] = val
     return search_dict
+
+def check_for_fractions(ingred):
+    replacements = {r"(\d) (1\/2)":r"\1 and a half",
+                    r"(\d) (1\/3)":r"\1 and a third",
+                    r"(\d) (1\/4)":r"\1 and a quarter",
+                    r"(\d) (1\/8)":r"\1 and an eighth",
+                    r"(\d) (3\/4)":r"\1 and three quarters",
+                    r"(\d) (2\/3)":r"\1 and two thirds",
+                    r"^1\/2":"Half", r"(\D) (1\/2)":r"\1 half",
+                    r"^1\/3":"One third", r"(\D) (1\/3)":r"\1 one third",
+                    r"^1\/4":"One quarter", r"(\D) (1\/4)":r"\1 one quarter",
+                    r"^1\/8":"One eighth", r"(\D) (1\/8)":r"\1 one eigth",
+                    r"^3\/4":"Three quarters", r"(\D) (3\/4)":r"\1 three quarters",
+                    r"^2\/3":"Two thirds", r"(\D) (2\/3)":r"\1 two thirds",
+                    r'(\d) (\½)':r"\1 and a half",
+                    r"(\d) (\⅓)":r"\1 and a third",
+                    r"(\d) (\¼)":r"\1 and a quarter",
+                    r"(\d) (\⅛)":r"\1 and an eighth",
+                    r"(\d) (\¾)":r"\1 and three quarters",
+                    r"(\d) (\⅔)":r"\1 and two thirds",
+                    r"^\½":"Half",
+                    r"^\⅓":"One third",
+                    r"^\¼":"One quarter",
+                    r"^\⅛":"One eighth",
+                    r"^\¾":"Three quarters",
+                    r"^\⅔":"Two thirds"}
+    lines = ingred.split("\n")
+    replaced = []
+    for line in lines:
+        for err, rpl in replacements.items():
+            line = re.sub(err, rpl, line, flags=re.U)
+        replaced.append(line)
+    return "\n".join(replaced)
 
 def form_to_tip_dict(formdata):
     mapping = {'search':'tip_name',
