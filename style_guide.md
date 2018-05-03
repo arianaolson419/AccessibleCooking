@@ -25,4 +25,8 @@ Less is more. People using screen readers have to sit through the whole text bei
 
     * Cook onions until they start to smell sweet or caramelized, and become flexible.
 
+  * Bake until edges are browned
+
+    * Bake until the edges are set and firm and the center is still soft.
+
 * Many times, a more tactile technique is better than the faster technique. For example, instead of throwing all the ingredients into a mixer, it is better to suggest, especially for newer cooks, to use a whisk or their hands to mix, so to feel when everything is fully mixed.
