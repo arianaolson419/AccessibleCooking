@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Upload Recipe</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}
+	<title>Upload Recipe</title>
+{% endblock %}
+{% block body %}
 	<h1>Upload Recipe</h1>
 	<ol id="demo"></ol>
 	<form id="upload_recipe_form" method="post">
@@ -107,5 +106,4 @@
 			<br><br>
 			<input type="submit" name="submit_recipe" value="Submit Recipe">
 	</form>
-</body>
-</html>
+{% endblock %}
