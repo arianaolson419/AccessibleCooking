@@ -1,8 +1,24 @@
 ---
 layout: default
+title: Code Architecture
 ---
 <h1>Code Architecture</h1>
 
 <p>
-    Our website is built on Flask, MongoDB, and Heroku. 
+    Our website is built on Flask, MongoDB, and Heroku. The image below shows the general software
+    system.
+</p>
+
+<img src="img/website_arch.png" alt="The architecture of our website. Heroku app contains a
+    recipe page and a submit recipe page, and Flask goes between the Heroku app and the Mongo
+    database.">
+
+<p>
+    Searching for recipes is based on the title and tags of the recipe. <strong>More on searching
+    here</strong>
+</p>
+
+<p>
+    When a user submits a recipe or tip, we also automatically detect and fix formatting problems,
+    such as writing out fractions. <strong>Other things we may or may not be detecting, or hope to detect</strong>
 </p>
