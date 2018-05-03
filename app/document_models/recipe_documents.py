@@ -37,7 +37,7 @@ class Recipe(db.Document):
     tags                    Tags for searching for the recipe. Optional.
                                     takes a list of strings.
 
-    video_id        The video identification number used to embed a youtube video. Optional
+    video_id                The video identification number used to embed a youtube video. Optional
                                     takes a string.
 
     media_url               The url of the supplemental meadio. Optional.
@@ -46,13 +46,8 @@ class Recipe(db.Document):
     media_type               Type of supplemental media provided. Required.
                                     takes a string.
 
-<<<<<<< HEAD
-    instruction             Steps of recipe. Optional.
+    instructions             Steps of recipe. Optional.
                                     takes a list of strings.
-=======
-        instructions             Steps of recipe. Optional.
-                                        takes a list of strings.
->>>>>>> master
 
     tips                    Tips related to recipe. Optional.
                                     List of references to Tips
@@ -62,7 +57,7 @@ class Recipe(db.Document):
     recipe_name = db.StringField(required=True)
     description = db.StringField(required=True)
     submitter = db.StringField(required=False)
-    
+
     difficulty = db.StringField(required=False)
     time = db.StringField(required=False)
     servings = db.StringField(required=False)
@@ -74,7 +69,7 @@ class Recipe(db.Document):
     
     video_id = db.StringField(required=False)
     media_url = db.StringField(required=False)
-    media_type = db.StringField(required=True)
+    media_type = db.StringField(required=False)
     tips = db.ListField(db.DocumentField(Tip, required=False), required = False)
 
     def get_id(self):

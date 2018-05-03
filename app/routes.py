@@ -60,11 +60,39 @@ def add_new_recipe():
     """
     if request.method == 'POST':
         request_dict = request_to_dict(request)
-        dict_to_recipe(request_dict)
-        return render_template('upload_recipe_success.html')
+        recipe = dict_to_recipe(request_dict)
+        tips = add_tips()
+        # tips = request_to_dict(tips)
+        for key, tip in tips.items():
+            print(key, tip)
+            # recipe.tips = recipe.tips + [tip]
+        print(recipe.tips)
+        recipe.save()
+        render_template('upload_recipe_success.html')
     # Render the upload recipe form in the case of GET method.
     return render_template('upload_recipe_form.html')
 
+@app.route('/add_tips', methods=['GET', 'POST'])
+def add_tips():
+    """
+    """
+    # if request.method == 'POST':
+    #     requests = request_to_dict(request)
+    #     for key, val in requests.items():
+    #         recipe.tips = recipe.tips + [val]
+    #     print(recipe.tips)
+    #     recipe.save()
+    #     render_template('upload_recipe_success.html')
+    if request.method == 'POST':
+        return request_to_dict(request)
+    equip_tips = Tip.query.is_type('equipment')
+    ingred_tips = Tip.query.is_type('ingredient')
+    method_tips = Tip.query.is_type('method')
+    basic_tips = Tip.query.is_type('basic')
+    return render_template('add_tips.html', equipment_tips=equip_tips,
+                                            ingredient_tips=ingred_tips,
+                                            method_tips=method_tips,
+                                            basic_tips=basic_tips)
 
 @app.route('/upload_tip', methods=['GET', 'POST'])
 def add_new_tip():

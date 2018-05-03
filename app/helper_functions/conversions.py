@@ -155,7 +155,7 @@ def request_to_dict(request):
         print(k, v)
         # The to_dict method returns values as lists, which is necessary for
         # the values with the name 'tag', but none of the other fields.
-        if k == 'tag':
+        if k == 'tag' or k == 'tip':
             obj_dict[k] = v
         elif k == 'difficulty':
             obj_dict['difficulty'] = req_dict['difficulty'][0]
@@ -178,6 +178,7 @@ def dict_to_recipe(request_dict):
                 tips=[])
 
     new_recipe.save()
+    return new_recipe
 
 def form_to_recipe_dict(formdata):
     mapping = {'search':'recipe_name',

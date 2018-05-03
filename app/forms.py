@@ -18,3 +18,6 @@ class RecipeSearchForm(Form):
 	select = SelectField('Search the Repository:', choices = choices)
 	search = StringField('')
 	tag_select = MultiCheckboxField('Tags', choices = tags)
+
+class AddTipsForm(Form):
+	pass

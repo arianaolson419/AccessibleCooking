@@ -63,6 +63,9 @@ class TipQuery(BaseQuery):
         """ Checks for a tip with a similar name """
         return self.filter(self.type.tip_name.regex(name, ignore_case=True))
 
+    def is_type(self, tag):
+        return self.filter(self.type.tags.in_(tag))
+
     def has_keyword(self, keywords):
         """ Checks for matching key words in ingredients or equipment 
             :input:

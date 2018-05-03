@@ -26,6 +26,7 @@ class Tip(db.Document):
     aud_vid         Audio/video component. Optional.
                     takes a url
     """
+    query_class = TipQuery
     tip_name = db.StringField(required=True)
     media_type = db.StringField(required=True)
     media_url = db.StringField(required=False)
