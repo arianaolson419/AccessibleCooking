@@ -9,8 +9,8 @@ class MultiCheckboxField(SelectMultipleField):
 	option_widget = widgets.CheckboxInput()
 
 class RecipeSearchForm(Form):
-	choices = [('Recipe', 'Recipes'),
-				('Tip', 'Tips')]
+	choices = [('recipe', 'Recipes'),
+				('tip', 'Tips')]
 	tags = [('Dinner', 'Dinner'),
 			('Breakfast', 'Breakfast'),
 			('Lunch', 'Lunch'),
@@ -18,3 +18,6 @@ class RecipeSearchForm(Form):
 	select = SelectField('Search the Repository:', choices = choices)
 	search = StringField('')
 	tag_select = MultiCheckboxField('Tags', choices = tags)
+
+class AddTipsForm(Form):
+	pass
