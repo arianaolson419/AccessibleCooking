@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Add Tips</title>
+	</head>
+	<body>
+		<h1>Add Tips to Recipe</h1>
+		<h2>Tips available</h2>
+		<form id="add_tips_form" method="post">
+			<div name="tips" id="tips">
+				<br>
+				<label for="recipetips">Add Tips to the Recipe</label>
+				<br>
+				{% if equipment_tips %}
+					<h3>Equipment-related Tips</h3>
+					<div name="equip_tips" id="equip_tips">
+						{% for equipment_tip in equipment_tips %}
+							<label for=>{{equipment_tip.tip_name}}</label>
+							<input type="checkbox" name="tip" id="{{equipment_tip.tip_name}}" value={{equipment_tip}}>
+							<br>
+						{% endfor %}
+					</div>
+				{% endif %}
+				<br><br>
+				{% if ingredient_tips %}
+					<h3>Ingredient-related Tips</h3>
+					<div name="ingred_tips" id="ingred_tips">
+						{% for ingredient_tip in ingredient_tips %}
+							<label for=>{{ingredient_tip.tip_name}}</label>
+							<input type="checkbox" name="tip" id="{{ingredient_tip.tip_name}}" value={{ingredient_tip}}>
+							<br>
+						{% endfor %}
+					</div>
+				{% endif %}
+				<br><br>
+				{% if method_tips %}
+					<h3>Method-related Tips</h3>
+					<div name="met_tips" id="met_tips">
+						{% for method_tip in method_tips %}
+							<label for=>{{method_tip.tip_name}}</label>
+							<input type="checkbox" name="tip" id="{{method_tip.tip_name}}" value={{method_tip}}>
+							<br>
+						{% endfor %}
+					</div>
+				{% endif %}
+				<br><br>
+				{% if basic_tips %}
+					<h3>Basic Tips</h3>
+					<div name="bas_tips" id="bas_tips">
+						{% for basic_tip in basic_tips %}
+							<label for=>{{basic_tip.tip_name}}</label>
+							<input type="checkbox" name="tip" id="{{basic_tip.tip_name}}" value={{basic_tip}}>
+							<br>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+			<br>
+			<br>
+			<input type="submit" name="add_tips" value="Add Tips">
+		</form>
+
+	</body>
+</html>

@@ -57,7 +57,7 @@
 		<h2>Related Tips</h2>
 		<ul>
 			{% for tip in recipe.tips %}
-			<li><a href={{ "/" + tip.get_id() }} target="_blank">{{ tip.name }}</a></li>
+			<li><a href={{ "/tip/" + tip.get_id() }} target="_blank">{{ tip.tip_name }}</a></li>
 			{% else %}
 			<li>There are currently no related tips associated with this recipe.</li>
 			{% endfor %}
