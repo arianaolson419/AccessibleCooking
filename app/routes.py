@@ -5,7 +5,7 @@ from app.forms import RecipeSearchForm
 from app import app
 
 from app.helper_functions.media import video_id_from_url
-from app.helper_functions.conversions import request_to_dict, form_to_recipe_dict, form_to_tip_dict, dict_to_recipe
+from app.helper_functions.conversions import request_to_dict, form_to_recipe_dict, form_to_tip_dict, dict_to_recipe, connect_line_and_tip
 
 @app.route('/')
 @app.route('/index')
@@ -78,7 +78,7 @@ def edit_recipe(recipe_id):
         recipe.tags = request_dict['tag']
         recipe.save()
         return redirect('/recipe/' + recipe.get_id())
-    
+
 @app.route('/upload_recipe', methods=['GET', 'POST'])
 def add_new_recipe():
     """Uses form input to add a new recipe to the database.
@@ -86,38 +86,26 @@ def add_new_recipe():
     if request.method == 'POST':
         request_dict = request_to_dict(request)
         recipe = dict_to_recipe(request_dict)
-        tips = add_tips()
-        # tips = request_to_dict(tips)
-        for key, tip in tips.items():
-            print(key, tip)
-            # recipe.tips = recipe.tips + [tip]
-        print(recipe.tips)
-        recipe.save()
-        render_template('upload_recipe_success.html')
+        return redirect('/add_tips/' + recipe.get_id())
     # Render the upload recipe form in the case of GET method.
     return render_template('upload_recipe_form.html')
 
-@app.route('/add_tips', methods=['GET', 'POST'])
-def add_tips():
+@app.route('/add_tips/<recipe_id>', methods=['GET', 'POST'])
+def add_tips(recipe_id):
     """
     """
-    # if request.method == 'POST':
-    #     requests = request_to_dict(request)
-    #     for key, val in requests.items():
-    #         recipe.tips = recipe.tips + [val]
-    #     print(recipe.tips)
-    #     recipe.save()
-    #     render_template('upload_recipe_success.html')
     if request.method == 'POST':
-        return request_to_dict(request)
+        # recipe = Recipe.query.get_or_404(recipe_id)
+        tips = request_to_dict(request)
+        recipe = Recipe.query.get_or_404(recipe_id)
+        connect_line_and_tip(recipe, tips)
+        return render_template('upload_recipe_success.html')
+    recipe = Recipe.query.get_or_404(recipe_id)
     equip_tips = Tip.query.is_type('equipment')
     ingred_tips = Tip.query.is_type('ingredient')
     method_tips = Tip.query.is_type('method')
     basic_tips = Tip.query.is_type('basic')
-    return render_template('add_tips.html', equipment_tips=equip_tips,
-                                            ingredient_tips=ingred_tips,
-                                            method_tips=method_tips,
-                                            basic_tips=basic_tips)
+    return render_template('add_tips.html', recipe=recipe)
 
 @app.route('/upload_tip', methods=['GET', 'POST'])
 def add_new_tip():
@@ -143,10 +131,12 @@ def add_new_tip():
         return render_template('upload_tip_success.html')
     return render_template('upload_tip_form.html')
 
-@app.route('/recipe/<recipe_id>')
+@app.route('/recipe/<recipe_id>', methods=['GET', 'POST'])
 def specific_recipe(recipe_id):
-        recipe = Recipe.query.get_or_404(recipe_id)
-        return render_template('recipe_template.html', recipe=recipe)
+    if request.method == 'POST':
+        return edit_recipe(recipe_id)
+    recipe = Recipe.query.get_or_404(recipe_id)
+    return render_template('recipe_template.html', recipe=recipe)
 
 @app.route('/tip/<tip_id>')
 def specific_tip(tip_id):

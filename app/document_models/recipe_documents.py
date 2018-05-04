@@ -1,6 +1,7 @@
 from flask_mongoalchemy import *
 import re
 from .tip_documents import Tip
+from .object_documents import TippedEntryField
 from app.helper_functions.query_helpers import RecipeQuery
 from app import db
 
@@ -42,7 +43,7 @@ class Recipe(db.Document):
 
     media_url               The url of the supplemental meadio. Optional.
                                     takes a string
-                                    
+
     media_type               Type of supplemental media provided. Required.
                                     takes a string.
 
@@ -62,11 +63,11 @@ class Recipe(db.Document):
     time = db.StringField(required=False)
     servings = db.StringField(required=False)
 
-    equipment = db.ListField(db.StringField(required=False))
-    ingredients = db.ListField(db.StringField(required=False))
-    instructions = db.ListField(db.StringField(required=False))
+    equipment = db.ListField(TippedEntryField(required=False))
+    ingredients = db.ListField(TippedEntryField(required=False))
+    instructions = db.ListField(TippedEntryField(required=False))
     tags = db.ListField(db.StringField(required=False))
-    
+
     video_id = db.StringField(required=False)
     media_url = db.StringField(required=False)
     media_type = db.StringField(required=False)

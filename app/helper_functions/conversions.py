@@ -1,6 +1,7 @@
 from flask_mongoalchemy import *
 from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
+from app.document_models.object_documents import Instruction, Ingredient, Equipment
 
 import logging
 import pdb
@@ -165,12 +166,24 @@ def request_to_dict(request):
     return obj_dict
 
 def dict_to_recipe(request_dict):
+    ingredients = []
+    for line in request_dict['ingredients'].split('\n'):
+        ingredients.append(Ingredient(line))
+
+    equipment = []
+    for line in request_dict['equipment'].split('\n'):
+        equipment.append(Equipment(line))
+
+    instructions = []
+    for line in request_dict['instructions'].split('\n'):
+        instructions.append(Instruction(line))
+
     new_recipe = Recipe(
                 recipe_name=request_dict['recipe_name'],
                 description=request_dict['description'],
-                ingredients=request_dict['ingredients'].split('\n'),
-                equipment=request_dict['equipment'].split('\n'),
-                instructions=request_dict['instructions'].split('\n'),
+                ingredients=ingredients,
+                equipment=equipment,
+                instructions=instructions,
                 difficulty=request_dict['difficulty'],
                 servings=request_dict['servings'],
                 time=request_dict['time'],
@@ -243,3 +256,29 @@ def get_all_recipe_text(recipe_obj):
     for field in fields:
         recipe_text += ' '.join([recipe_obj[field]])
     return recipe_text
+
+def connect_line_and_tip(recipe_obj, tips):
+    for line_to_match, tip in tips.items():
+        matched = False
+        if not matched:
+            for instruction in recipe_obj.instructions:
+                if instruction.text==line_to_match:
+                    instruction.set_tip(tip)
+                    matched = True
+                    break
+
+        if not matched:
+            for ingredient in recipe_obj.ingredients:
+                if ingredient.text==line_to_match:
+                    ingredient.set_tip(tip)
+                    matched = True
+                    break
+
+        if not matched:
+            for equip in recipe_obj.equipment:
+                if equip.text==line_to_match:
+                    equip.set_tip(tip)
+                    matched = True
+                    break
+
+    recipe_obj.save()

@@ -36,7 +36,7 @@
 		<h2>Equipment</h2>
 		<ul>
 			{% for equipment in recipe.equipment %}
-			<li>{{equipment}}</li>
+			<li>{{ equipment.text }} {% if equipment.has_tip() %} <a href="/tip/{{equipment.tip_id}}"> Tip </a> {% endif %}</li>
 			{% else %}
 			<li>This recipe requires no equipment</li>
 			{% endfor %}
@@ -44,27 +44,28 @@
 		<h2>Ingredients</h2>
 			<ul>
 				{% for ingredient in recipe.ingredients %}
-				<li>{{ ingredient }}</li>
+				<li>{{ ingredient.text }} {% if ingredient.has_tip() %} <a href="/tip/{{ingredient.tip_id}}"> Tip </a> {% endif %}</li>
 				{% else %}
 				<li>This recipe requires no ingredients</li>
 				{% endfor %}
 			</ul>
 		<h2>Instructions</h2>
 		<ol>
-			{% for instruction in recipe.instruction %}
-			<li>{{ instruction }}</li>
+			{% for instruction in recipe.instructions %}
+			<li>{{ instruction.text }} {% if instruction.has_tip() %} <a href="/tip/{{instruction.tip_id}}"> Tip </a> {% endif %}</li>
 			{% else %}
 			<li>There are no instructions for this recipe.</li>
 			{% endfor %}
 		</ol>
-		<h2>Related Tips</h2>
+		<!-- <h2>Related Tips</h2>
 		<ul>
 			{% for tip in recipe.tips %}
 			<li><a href={{ "/tip/" + tip.get_id() }} target="_blank">{{ tip.tip_name }}</a></li>
 			{% else %}
 			<li>There are currently no related tips associated with this recipe.</li>
 			{% endfor %}
-		</ul>
+		</ul> -->
+		<p><a href={{ "/edit_recipe/" + recipe.get_id() }}>Edit this recipe</a></p>
 	</body>
 
 </html>
