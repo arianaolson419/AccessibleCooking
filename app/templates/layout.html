@@ -4,6 +4,7 @@
 		{% block title %}{% endblock %}
 	</head>
 	<div name=page id=page>
+		<a href="#main_content">Skip to content</a>
 		<div name=navbar id=navbar>
 			<ul>
 				<li><a href="/">About</a></li>
@@ -11,6 +12,8 @@
 				<li><a href="/upload_recipe">Submit a Recipe</a></li>
 			</ul>
 		</div>
+		<div name="main_content" id="main_content">
 		{% block body %}{% endblock %}
+		</div>
 	</div>
 </html>
