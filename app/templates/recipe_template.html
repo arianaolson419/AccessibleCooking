@@ -36,39 +36,30 @@
 			<h3>Servings</h3>
 			<p>{{recipe.servings}}</p>
 			<h2>Equipment</h2>
-		<ul>
-			{% for equipment in recipe.equipment %}
-			<li>{{equipment}}</li>
-			{% else %}
-			<li>This recipe requires no equipment</li>
-			{% endfor %}
-		</ul>
-		<h2>Ingredients</h2>
-				<ul>
-					{% for ingredient in recipe.ingredients %}
-					<li>{{ ingredient }}</li>
-					{% else %}
-					<li>This recipe requires no ingredients</li>
-					{% endfor %}
-				</ul>
+			<ul>
+				{% for equipment in recipe.equipment %}
+					<li>{{ equipment.text }} {% if equipment.has_tip() %} <a href={{equipment.give_tip_link()}}> Tip: {{equipment.tip_name}} </a> {% endif %}</li>
+				{% else %}
+					<li>This recipe requires no equipment</li>
+				{% endfor %}
+			</ul>
+			<h2>Ingredients</h2>
+			<ul>
+				{% for ingredient in recipe.ingredients %}
+				<li>{{ ingredient.text }} {% if ingredient.has_tip() %} <a href={{ingredient.give_tip_link()}}> Tip: {{ingredient.tip_name}} </a> {% endif %}</li>
+				{% else %}
+				<li>This recipe requires no ingredients</li>
+				{% endfor %}
+			</ul>
 			<h2>Instructions</h2>
 			<ol>
-				{% for instruction in recipe.instruction %}
-				<li>{{ instruction }}</li>
+				{% for instruction in recipe.instructions %}
+				<li>{{ instruction.text }} {% if instruction.has_tip() %} <a href={{instruction.give_tip_link()}}> Tip: {{instruction.tip_name}} </a> {% endif %}</li>
 				{% else %}
 				<li>There are no instructions for this recipe.</li>
 				{% endfor %}
 			</ol>
+			<p><a href={{ "/edit_recipe/" + recipe.get_id() }}>Edit this recipe</a></p>
 		</div>
-</div>
-</body>
-</html>
-		<h2>Related Tips</h2>
-		<ul>
-			{% for tip in recipe.tips %}
-			<li><a href={{ "/tip/" + tip.get_id() }} target="_blank">{{ tip.tip_name }}</a></li>
-			{% else %}
-			<li>There are currently no related tips associated with this recipe.</li>
-			{% endfor %}
-		</ul>
-	{% endblock %}
+	</div>
+{% endblock %}
