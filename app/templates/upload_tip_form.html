@@ -1,99 +1,98 @@
 {% extends 'layout.html' %}
-	{% block title %}<title>Upload Tip</title>{% endblock %}
-	{% block body %}
-    <h1>Upload Tip</h1>
-    <ol id="demo"></ol>
-    <form id="upload_tip_form" method="post">
-            <div name="tipname" id="tipname">
-                <label for="tip_name">Tip Name: </label>
-                <input type="text" name="tip_name" id="tip_name" placeholder="type tip name here">
-                <br><br>
-            </div>
-            <div name="medialink" id="medialink">
-                <label for="medialink">Optional: Provide Supplemental Audio or Video for the Tip</label>
-                <br>
-                <input type="radio" name="media_type" id="audio" value="Audio">
-                <label for="audio">Audio</label>
-                <br>
-                <input type="radio" name="media_type" id="video" value="Video">
-                <label for="video">Video</label>
-                <br>
-                <input type="radio" name="media_type" id="nomedia" value="No Supplemental Media">
-                <label for="nomedia">No Supplemental Media</label>
-                <br>
-                <label for="media_url">Link:</label>
-                <input type="url" name="media_url" id="media_url" placeholder="Link to audio/video here">
-            </div>
-            <div name=tipinfo" id=tipinfo">
-                <br>
-                <label for=tipinfo">Information About the Tip</label>
-                <br>
-                <label for="difficulty">Difficulty/Skill Level</label>
-                <select name="difficulty" id="difficulty">
-                    <option value="select difficulty (use alt-down to navigate with screen reader)" disabled selected>Select Difficulty</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-                <br>
-                <label for="description">Description:</label>
-                <br>
-                <textarea name="description" id="desciption" rows="10" cols="50"
-                    placeholder="Write a quick description here."></textarea>
-                <br>
-            </div>
-            <div name="tipdetails" id="tipdetails">
-                <br>
-                <label for="tipdetails">Tip Details</label>
-                <br>
-                <label for="equipment">Equipment:</label>
-                <br>
-                <textarea
-                    name="equipment"
-                    id="equipment"
-                    rows="10"
-                    cols="50"
-                    placeholder="Type each piece of equipment on its own line"></textarea>
-                <br>
-                <label for="ingredients">Ingredients:</label>
-                <br>
-                <textarea
-                    name="ingredients"
-                    id="ingredients"
-                    rows="10"
-                    cols="50"
-                    placeholder="Type each ingredient its own line"></textarea>
-                <br>
-                <label for="instructions">Instructions:</label>
-                <br>
-                <textarea
-                    name="instructions"
-                    id="instructions"
-                    rows="10" cols="50"
-                    placeholder="Type each instruction on its own line"></textarea>
-                <br>
-            </div>
-            <div name="tiptags" id="tiptags">
-                <br>
-                <label for="tiptags">Add Tags to the Tip</label>
-                <br>
-                <label for="tag_checkboxes">Select Your Tags:</label>
-                <div name="tag_checkboxes" id="tag_checkboxes">
-                    <label for=tag1>Equipment</label>
-                    <input type="checkbox" name="tag" id="tag1" value="equipment">
+{% block title_desc %}
+  <title>Upload Tip</title>
+  <meta name="description" content="upload your custom tip here">
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="nine columns">
+            <h1>Upload Tip</h1>
+            <ol id="demo"></ol>
+            <form id="upload_tip_form" method="post">
+                    <div name="tipname" id="tipname">
+                        <label for="tip_name">Tip Name: </label>
+                        <input type="text" name="tip_name" id="tip_name" placeholder="type tip name here">
+                        <br><br>
+                    </div>
+                    <div name="medialink" id="medialink">
+                        <label for="medialink">Optional: Provide Supplemental Audio or Video for the Tip</label>
+                        <br>
+                        <label for="audio">Audio</label>
+                        <input type="radio" name="mediatype" id="audio" value="Audio">
+                        <br>
+                        <label for="video">Video</label>
+                        <input type="radio" name="mediatype" id="video" value="Video">
+                        <br>
+                        <label for="nomedia">No Supplemental Media</label>
+                        <input type="radio" name="mediatype" id="nomedia" value="No Supplemental Media">
+                        <br>
+                        <label for="media_url">Link:</label>
+                        <input type="url" name="media_url" id="media_url" placeholder="Link to audio/video here">
+                    </div>
+                    <div name=tipinfo" id=tipinfo">
+                        <br>
+                        <label for="tipinfo">Information About the Tip"</label>
+                        <br>
+                        <label for="difficulty">Difficulty/Skill Level</label>
+                        <select name="difficulty" id="difficulty">
+                            <option value="select difficulty (use alt-down to navigate with screen reader)" disabled selected>Select Difficulty</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                        <br>
+                        <label for="description">Description:</label>
+                        <br>
+                        <textarea name="description" id="desciption" rows="10" cols="50"
+                            placeholder="Write a quick description here."></textarea>
+                        <br>
+                    </div>
+                    <div name="tipdetails" id="tipdetails">
+                        <br>
+                        <label for="tipdetails">Tip Details</label>
+                        <br>
+                        <label for="equipment">Equipment and ingredients:</label>
+                        <br>
+                        <textarea
+                            name="equipment"
+                            id="equipment"
+                            rows="10"
+                            cols="50"
+                            placeholder="Type each ingredient or piece of equipment on its own line"></textarea>
+                        <br>
+                        <label for="instruction">Procedure:</label>
+                        <br>
+                        <textarea
+                            name="instruction"
+                            id="instruction"
+                            rows="10" cols="50"
+                            placeholder="Type each instruction on its own line"></textarea>
+                        <br>
+                    </div>
+                    <div name="tiptags" id="tiptags">
+                        <br>
+                        <label for="tiptags">Add Tags to the Tip</label>
+                        <br>
+                        <label for="tag_checkboxes">Select Your Tags:</label>
+                        <div name="tag_checkboxes" id="tag_checkboxes">
+                            <label for=tag2>Equipment</label>
+                            <input type="checkbox" name="tag" id="tag2" value="equipment">
+                            <br>
+                            <label for=tag3>Ingredient</label>
+                            <input type="checkbox" name="tag" id="tag3" value="ingredient">
+                            <br>
+                            <label for=tag4>Method</label>
+                            <input type="checkbox" name="tag" id="tag4" value="method">
+                            <br>
+                        </div>
+                    </div>
                     <br>
-                    <label for=tag2>Ingredient</label>
-                    <input type="checkbox" name="tag" id="tag2" value="ingredient">
-                    <br>
-                    <label for=tag3>Method</label>
-                    <input type="checkbox" name="tag" id="tag3" value="method">
-                    <br>
-                    <label for=tag3>Basic</label>
-                    <input type="checkbox" name="tag" id="tag2" value="basic">
-                    <br>
-                </div>
-            </div>
-	    <br><br>
-            <input type="submit" name="submit_tip" value="Submit Tip">
-    </form>
+                    <input type="button" name="review_tip" value="Review Tip">
+                    <br><br>
+                    <input type="submit" name="submit_tip" value="Submit Tip">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
 {% endblock %}
