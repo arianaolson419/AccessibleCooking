@@ -69,7 +69,7 @@
 			<br>
 			<label for="description">Description:</label>
 			<br>
-			<textarea name="description" id="desciption" rows="10" cols="50" 
+			<textarea name="description" id="desciption" rows="10" cols="50"
 							  >{{ recipe.description }}</textarea>
 			<br>
 			<label for="time">Time:</label>
@@ -85,21 +85,21 @@
 			<br>
 			<label for="equipment">Equipment:</label>
 			<br>
-			<textarea 
-				name="equipment" 
+			<textarea
+				name="equipment"
 				id="equipment"
 				rows="10"
 				cols="50"
-				>{{ '\n'.join(recipe.equipment) }}</textarea>
+				>{{ '\n'.join(recipe.equipment_list()) }}</textarea>
 			<br>
 			<label for=ingredients>Ingredients (with quantities):</label>
 			<br>
-			<textarea 
-				name="ingredients" 
+			<textarea
+				name="ingredients"
 				id="ingredients"
 				rows="10"
 				cols="50"
-				>{{ '\n'.join(recipe.ingredients) }}</textarea>
+				>{{ '\n'.join(recipe.ingredient_list()) }}</textarea>
 			<br>
 			<label for="instructions">Procedure:</label>
 			<br>
@@ -107,7 +107,7 @@
 				name="instructions"
 				id="instructions"
 				rows="10" cols="50"
-				>{{ '\n'.join(recipe.instructions) }}</textarea>
+				>{{ '\n'.join(recipe.instruction_list()) }}</textarea>
 			<br>
 		</div>
 		<div name="recipetags" id="recipetags">
@@ -150,8 +150,8 @@
 		<div name="addtips" id="addtips">
 			<label for="addtips">Related Tips:</label>
 			<br>
-			<textarea 
-				name="tiplinks" 
+			<textarea
+				name="tiplinks"
 				id="tiplinks"
 				rows="10"
 				cols="50"
