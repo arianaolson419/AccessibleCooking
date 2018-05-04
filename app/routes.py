@@ -10,7 +10,7 @@ from app.helper_functions.conversions import request_to_dict, form_to_recipe_dic
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('about.html')
+    return render_template('index.html')
 
 @app.route('/recipes')
 def recipe():
