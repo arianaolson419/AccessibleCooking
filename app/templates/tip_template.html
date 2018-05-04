@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Tips</title>
-	</head>
-	<body>
+{% extends 'layout.html' %}
+	{% block title %}<title>Tips</title>{% endblock %}
+	{% block body %}
 		<h1>{{ tip.title }}</h1>
 		<h2>Supplemental Media</h2>
 			{% if tip.media_type == 'Video' %}
@@ -43,5 +40,4 @@
 				<li>{{ instruction }}</li>
 				{% endfor %}
 			</ol>
-
-	</body>
+	{% endblock %}

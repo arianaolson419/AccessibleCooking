@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Upload Tip</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+	{% block title %}<title>Upload Tip</title>{% endblock %}
+	{% block body %}
     <h1>Upload Tip</h1>
     <ol id="demo"></ol>
     <form id="upload_tip_form" method="post">
@@ -99,5 +96,4 @@
 	    <br><br>
             <input type="submit" name="submit_tip" value="Submit Tip">
     </form>
-</body>
-</html>
+{% endblock %}

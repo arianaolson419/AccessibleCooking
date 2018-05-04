@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	<title>Recipes</title>
-	</head>
-	<body>
+{% extends 'layout.html' %}
+	{% block title %}<title>Recipes</title>{% endblock %}
+	{% block body %}
 		<h1>{{recipe.recipe_name}}</h1>
 		<h2>Supplemental Media</h2>
 		{% if recipe.media_type == 'Video' %}
@@ -57,15 +54,5 @@
 			<li>There are no instructions for this recipe.</li>
 			{% endfor %}
 		</ol>
-		<!-- <h2>Related Tips</h2>
-		<ul>
-			{% for tip in recipe.tips %}
-			<li><a href={{ "/tip/" + tip.get_id() }} target="_blank">{{ tip.tip_name }}</a></li>
-			{% else %}
-			<li>There are currently no related tips associated with this recipe.</li>
-			{% endfor %}
-		</ul> -->
 		<p><a href={{ "/edit_recipe/" + recipe.get_id() }}>Edit this recipe</a></p>
-	</body>
-
-</html>
+	{% endblock %}

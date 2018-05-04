@@ -4,8 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask-mongoalchemy = "*"
 wtforms = "*"
+flask-wtf = "*"
+flask-mongoalchemy = "*"
+pytz = "*"
+gunicorn = "*"
 
 [dev-packages]
 
