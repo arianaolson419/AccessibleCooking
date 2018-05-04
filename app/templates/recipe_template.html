@@ -28,70 +28,61 @@
 
 <body>
 	<div class="container">
-		<div class ="two columns">
+		<div class= "nine columns">
+			<h1>{{recipe.recipe_name}}</h1>
+			<h2>Supplemental Media</h2>
+			{% if recipe.media_type == 'Video' %}
+			<label for="video">Video Supplement</label>
+			<br>
+			<iframe width="854" height="480"
+			      src={{ "https://www.youtube.com/embed/" + recipe.video_id }} frameborder="0"
+			allowfullscreen id="video"></iframe>
+			{% endif %}
+
+			{% if recipe.media_type == 'Audio' %}
+			<br>
+			<label for="audio">Audio Supplement</label>
+			<br>
+			<a href={{ recipe.media_url }} target="_blank">Navigate to supplemental audio. Opens in new tab</a>
+			{% endif %}
+
+			{% if recipe.media_type == 'No Supplemental Media' %}
+			<p>There is no supplemental media for this recipe.</p>
+			{% endif %}
+			<h2>About</h2>
+			<h3>Description</h3>
+			<p>{{recipe.description}}</p>
+			<h3>Difficulty</h3>
+			<p>{{recipe.difficulty}}</p>
+			<h3>Time</h3>
+			<p>{{recipe.time}}</p>
+			<h3>Servings</h3>
+			<p>{{recipe.servings}}</p>
+			<h2>Equipment</h2>
 			<ul>
-        	<li><a href="index.html">About</a></li>
-        	<li><a href="search.html">Search</a></li>
-        	<li><a href="upload_recipe_form.html">Submit</a></li>
-      		</ul>
-		</div>
-	</div>
-
-	<div class= "nine columns">
-		<h1>{{recipe.recipe_name}}</h1>
-		<h2>Supplemental Media</h2>
-		{% if recipe.media_type == 'Video' %}
-		<label for="video">Video Supplement</label>
-		<br>
-		<iframe width="854" height="480"
-		      src={{ "https://www.youtube.com/embed/" + recipe.video_id }} frameborder="0"
-		allowfullscreen id="video"></iframe>
-		{% endif %}
-
-		{% if recipe.media_type == 'Audio' %}
-		<br>
-		<label for="audio">Audio Supplement</label>
-		<br>
-		<a href={{ recipe.media_url }} target="_blank">Navigate to supplemental audio. Opens in new tab</a>
-		{% endif %}
-
-		{% if recipe.media_type == 'No Supplemental Media' %}
-		<p>There is no supplemental media for this recipe.</p>
-		{% endif %}
-		<h2>About</h2>
-		<h3>Description</h3>
-		<p>{{recipe.description}}</p>
-		<h3>Difficulty</h3>
-		<p>{{recipe.difficulty}}</p>
-		<h3>Time</h3>
-		<p>{{recipe.time}}</p>
-		<h3>Servings</h3>
-		<p>{{recipe.servings}}</p>
-		<h2>Equipment</h2>
-		<ul>
-			{% for equipment in recipe.equipment %}
-			<li>{{equipment}}</li>
-			{% else %}
-			<li>This recipe requires no equipment</li>
-			{% endfor %}
-		</ul>
-		<h2>Ingredients</h2>
-			<ul>
-				{% for ingredient in recipe.ingredients %}
-				<li>{{ ingredient }}</li>
+				{% for equipment in recipe.equipment %}
+				<li>{{equipment}}</li>
 				{% else %}
-				<li>This recipe requires no ingredients</li>
+				<li>This recipe requires no equipment</li>
 				{% endfor %}
 			</ul>
-		<h2>Instructions</h2>
-		<ol>
-			{% for instruction in recipe.instruction %}
-			<li>{{ instruction }}</li>
-			{% else %}
-			<li>There are no instructions for this recipe.</li>
-			{% endfor %}
-		</ol>
-	</div>
-
+			<h2>Ingredients</h2>
+				<ul>
+					{% for ingredient in recipe.ingredients %}
+					<li>{{ ingredient }}</li>
+					{% else %}
+					<li>This recipe requires no ingredients</li>
+					{% endfor %}
+				</ul>
+			<h2>Instructions</h2>
+			<ol>
+				{% for instruction in recipe.instruction %}
+				<li>{{ instruction }}</li>
+				{% else %}
+				<li>There are no instructions for this recipe.</li>
+				{% endfor %}
+			</ol>
+		</div>
+</div>
 </body>
 </html>
