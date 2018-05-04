@@ -1,39 +1,9 @@
-<!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>Recipe Page</title>
-  <meta name="description" content="template that fills with recipe contents">
-  <meta name="author" content="mf">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS this is in the static directory
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="../static/css/normalize.css">
-  <link rel="stylesheet" href="../static/css/skeleton.css">
-
-  <title> Upload Recipe </title>
- </head>
-
-<body>
-	<div class="container">
-		<div class ="two columns">
-			<ul>
-        	<li><a href="index.html">About</a></li>
-        	<li><a href="search.html">Search</a></li>
-       		</ul>
-		</div>
+{% extends 'layout.html' %}
+{% block title_desc %}
+<title>Upload Recipe</title>
+<meta name="description" content="form to input recipe information to submit to the database">
+{% endblock %}
+{% block body %}
 		<div class="nine columns">
 			<h1>Upload Recipe</h1>
 			<ol id="demo"></ol>
@@ -46,14 +16,14 @@
 					<div name="medialink" id="medialink">
 						<label for="medialink">Optional: Provide Supplemental Audio or Video to the Recipe</label>
 						<br>
-						<input type="radio" name="media_type" id="audio" value="Audio">
 						<label for="audio">Audio</label>
+						<input type="radio" name="media_type" id="audio" value="Audio">
 						<br>
-						<input type="radio" name="media_type" id="video" value="Video">
 						<label for="video">Video</label>
+						<input type="radio" name="media_type" id="video" value="Video">
 						<br>
-						<input type="radio" name="media_type" id="nomedia" value="No Supplemental Media">
 						<label for="nomedia">No Supplemental Media</label>
+						<input type="radio" name="media_type" id="nomedia" value="No Supplemental Media">
 						<br>
 						<label for="media_url">Link:</label>
 						<input type="url" name="media_url" id="media_url" placeholder="Link to audio/video here">
@@ -133,14 +103,9 @@
 							<br>
 						</div>
 					</div>
-					<br>
-					<input type="button" name="review_recipe" value="Review Recipe">
-					<br><br>
-					<input type="submit" name="submit_recipe" value="Submit Recipe">
-			</form>
-
-				</div>
-			</div>
-	
-</body>
-</html>
+			<br>
+			<input type="button" name="review_recipe" value="Review Recipe">
+			<br><br>
+			<input type="submit" name="submit_recipe" value="Submit Recipe">
+	</form>
+{% endblock %}

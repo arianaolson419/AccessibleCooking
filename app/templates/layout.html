@@ -1,17 +1,48 @@
 <!doctype html>
-<html>
+<html lang="en">
 	<head>
-		{% block title %}{% endblock %}
+
+	  <!-- Basic Page Needs
+	  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	  <meta charset="utf-8">
+	  <!-- In each sub-template, put a title and meta description tag
+	  in this block -->
+	  {% block title_desc %}{% endblock %}
+	  <title>Recipe Page</title>
+	  <meta name="description" content="template that fills with recipe
+	  contents">
+	  <meta name="author" content="mf">
+
+	  <!-- Mobile Specific Metas
+	  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	  <meta name="viewport" content="width=device-width,
+	  initial-scale=1">
+
+	  <!-- FONT
+	  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	  <link
+	  href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
+	  rel="stylesheet" type="text/css">
+
+	  <!-- CSS this is in the static directory
+	  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	  <link rel="stylesheet" href="../static/css/normalize.css">
+	  <link rel="stylesheet" href="../static/css/skeleton.css">
+
 	</head>
+
 	<div name=page id=page>
 		<a href="#main_content">Skip to content</a>
-		<div name=navbar id=navbar>
-			<ul>
+		<div class="container">
+			<div class ="three columns">
+				<ul>
 				<li><a href="/">About</a></li>
 				<li><a href="/search">Search Recipes and Tips</a></li>
 				<li><a href="/upload_recipe">Submit a Recipe</a></li>
-			</ul>
-		</div>
+				<li><a href="/upload_tip">Submit a Tip</a></li>
+				</ul>
+			</div>
+
 		<div name="main_content" id="main_content">
 		{% block body %}{% endblock %}
 		</div>

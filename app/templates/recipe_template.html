@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
+{% extends 'layout.html' %}
+{% block title_desc %}
   <title>Recipe Page</title>
   <meta name="description" content="template that fills with recipe contents">
-  <meta name="author" content="mf">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS this is in the static directory
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="../static/css/normalize.css">
-  <link rel="stylesheet" href="../static/css/skeleton.css">
-
-  <title> Recipe </title>
- </head>
-<!-- Begin body of the recipe page -->
-
-<body>
+  {% endblock %}
+  {% block body %}
 	<div class="container">
 		<div class= "nine columns">
 			<h1>{{recipe.recipe_name}}</h1>
@@ -59,14 +36,14 @@
 			<h3>Servings</h3>
 			<p>{{recipe.servings}}</p>
 			<h2>Equipment</h2>
-			<ul>
-				{% for equipment in recipe.equipment %}
-				<li>{{equipment}}</li>
-				{% else %}
-				<li>This recipe requires no equipment</li>
-				{% endfor %}
-			</ul>
-			<h2>Ingredients</h2>
+		<ul>
+			{% for equipment in recipe.equipment %}
+			<li>{{equipment}}</li>
+			{% else %}
+			<li>This recipe requires no equipment</li>
+			{% endfor %}
+		</ul>
+		<h2>Ingredients</h2>
 				<ul>
 					{% for ingredient in recipe.ingredients %}
 					<li>{{ ingredient }}</li>
@@ -86,3 +63,12 @@
 </div>
 </body>
 </html>
+		<h2>Related Tips</h2>
+		<ul>
+			{% for tip in recipe.tips %}
+			<li><a href={{ "/tip/" + tip.get_id() }} target="_blank">{{ tip.tip_name }}</a></li>
+			{% else %}
+			<li>There are currently no related tips associated with this recipe.</li>
+			{% endfor %}
+		</ul>
+	{% endblock %}

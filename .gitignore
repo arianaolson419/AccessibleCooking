@@ -1,4 +1,4 @@
-*.lock
 *.pyc
+*.swp
 __pycache__/
 docs/_site/

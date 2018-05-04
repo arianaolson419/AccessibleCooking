@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
+{% extends 'layout.html' %}
+{% block title_desc %}
   <title>Upload Tip</title>
   <meta name="description" content="upload your custom tip here">
-  <meta name="author" content="mf">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS this is in the static directory
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="../static/css/normalize.css">
-  <link rel="stylesheet" href="../static/css/skeleton.css">
-
-  <title> Upload Tip </title>
- </head>
-
- <!-- Begin body here-->
-<body>
+{% endblock %}
+{% block body %}
     <div class="container">
         <div class="nine columns">
             <h1>Upload Tip</h1>
@@ -40,14 +17,14 @@
                     <div name="medialink" id="medialink">
                         <label for="medialink">Optional: Provide Supplemental Audio or Video for the Tip</label>
                         <br>
-                        <input type="radio" name="mediatype" id="audio" value="Audio">
                         <label for="audio">Audio</label>
+                        <input type="radio" name="mediatype" id="audio" value="Audio">
                         <br>
-                        <input type="radio" name="mediatype" id="video" value="Video">
                         <label for="video">Video</label>
+                        <input type="radio" name="mediatype" id="video" value="Video">
                         <br>
-                        <input type="radio" name="mediatype" id="nomedia" value="No Supplemental Media">
                         <label for="nomedia">No Supplemental Media</label>
+                        <input type="radio" name="mediatype" id="nomedia" value="No Supplemental Media">
                         <br>
                         <label for="media_url">Link:</label>
                         <input type="url" name="media_url" id="media_url" placeholder="Link to audio/video here">
@@ -121,3 +98,4 @@
     </div>   
 </body>
 </html>
+{% endblock %}

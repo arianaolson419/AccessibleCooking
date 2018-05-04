@@ -1,16 +1,9 @@
-<!DOCTYPE html>
+{% extends 'layout.html' %}
 
-<html>
-<head>
+{% block title %}
 <title>About BlindOven</title>
-</head>
-    <body>
-        <ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="search.html">Search</a></li>
-          <li><a href="upload_recipe_form.html">Submit</a></li>
-          <li><a href="sign_in.html">Sign In</a></li>
-        </ul>
+{% endblock %}
+{% block body %}
         <h1>About BlindOven</h1>
         <p>
         We recognize that people who are visually impaired often find conventional cooking resources inaccessible. As such, BlindOven compiles accessible recipes written by amateur and professional chefs with visual impairments. We are the most comprehensive source of recipes and cooking tips for the blind, whether you are new to cooking with visual impairments or an experienced chef.
@@ -48,5 +41,4 @@
           one another in the kitchen.
         </p>
 
-    </body>
-</html>
+{% endblock %}
