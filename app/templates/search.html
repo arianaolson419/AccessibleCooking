@@ -1,8 +1,9 @@
-<doctype html>
-<head>
+{% extends 'layout.html' %}
+{% block title %}
 	<title>Recipe Database Search</title>
-</head>
+{% endblock %}
 
+{% block body %}
 <h1>Search Recipes</h1>
 
 {% with messages = get_flashed_messages() %}
@@ -48,3 +49,4 @@
 	<p>No results found</p>
 	{% endif %}
 </body>
+{% endblock %}

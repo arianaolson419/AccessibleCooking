@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	<title>Recipes</title>
-	</head>
-	<body>
+{% extends 'layout.html' %}
+	{% block title %}<title>Recipes</title>{% endblock %}
+	{% block body %}
 		<h1>{{recipe.recipe_name}}</h1>
 		<h2>Supplemental Media</h2>
 		{% if recipe.media_type == 'Video' %}
@@ -65,6 +62,4 @@
 			<li>There are currently no related tips associated with this recipe.</li>
 			{% endfor %}
 		</ul>
-	</body>
-
-</html>
+	{% endblock %}
