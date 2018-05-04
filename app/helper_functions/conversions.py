@@ -1,4 +1,5 @@
 from flask_mongoalchemy import *
+from bson.objectid import *
 from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
 from app.document_models.object_documents import Instruction, Ingredient, Equipment
@@ -153,7 +154,6 @@ def request_to_dict(request):
         req_dict = request.values.to_dict(flat=False)
     obj_dict = {}
     for k, v in req_dict.items():
-        print(k, v)
         # The to_dict method returns values as lists, which is necessary for
         # the values with the name 'tag', but none of the other fields.
         if k == 'tag' or k == 'tip':
@@ -162,7 +162,6 @@ def request_to_dict(request):
             obj_dict['difficulty'] = req_dict['difficulty'][0]
         else:
             obj_dict[k] = check_for_fractions(v[0])
-    print(obj_dict)
     return obj_dict
 
 def dict_to_recipe(request_dict):
@@ -197,7 +196,6 @@ def form_to_recipe_dict(formdata):
     mapping = {'search':'recipe_name',
                 'tag_select':'tags'}
     search_dict = {}
-    print(formdata)
     for key, val in formdata.items():
         if key not in ['select'] and val != []: # expand this as needed
             search_dict[mapping[key]] = val
@@ -240,7 +238,6 @@ def form_to_tip_dict(formdata):
     mapping = {'search':'tip_name',
                 'tag_select':'tags'}
     search_dict = {}
-    print(formdata)
     for key, val in formdata.items():
         if key not in ['select'] and val != []: # expand this as needed
             search_dict[mapping[key]] = val
@@ -260,25 +257,30 @@ def get_all_recipe_text(recipe_obj):
 def connect_line_and_tip(recipe_obj, tips):
     for line_to_match, tip in tips.items():
         matched = False
-        if not matched:
-            for instruction in recipe_obj.instructions:
-                if instruction.text==line_to_match:
-                    instruction.set_tip(tip)
-                    matched = True
-                    break
+        if tip != "Add Tips":
+            tip_obj = Tip.query.get_or_404(tip)
+            if not matched:
+                for instruction in recipe_obj.instructions:
+                    first_word = instruction.text.partition(' ')[0].strip()
+                    if first_word ==line_to_match.strip() and not instruction.has_tip():
+                        instruction.set_tip(tip, tip_obj.tip_name)
+                        matched = True
+                        break
 
-        if not matched:
-            for ingredient in recipe_obj.ingredients:
-                if ingredient.text==line_to_match:
-                    ingredient.set_tip(tip)
-                    matched = True
-                    break
+            if not matched:
+                for ingredient in recipe_obj.ingredients:
+                    first_word = ingredient.text.partition(' ')[0].strip()
+                    if first_word==line_to_match.strip() and not ingredient.has_tip():
+                        ingredient.set_tip(tip, tip_obj.tip_name)
+                        matched = True
+                        break
 
-        if not matched:
-            for equip in recipe_obj.equipment:
-                if equip.text==line_to_match:
-                    equip.set_tip(tip)
-                    matched = True
-                    break
+            if not matched:
+                for equip in recipe_obj.equipment:
+                    first_word = equip.text.partition(' ')[0].strip()
+                    if first_word==line_to_match.strip() and not equip.has_tip():
+                        equip.set_tip(tip, tip_obj.tip_name)
+                        matched = True
+                        break
 
     recipe_obj.save()
