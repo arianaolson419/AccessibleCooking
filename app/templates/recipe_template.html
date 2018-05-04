@@ -1,9 +1,43 @@
 <!DOCTYPE html>
-<html>
-	<head>
-	<title>Recipes</title>
-	</head>
-	<body>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Recipe Page</title>
+  <meta name="description" content="template that fills with recipe contents">
+  <meta name="author" content="mf">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS this is in the static directory
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../static/css/normalize.css">
+  <link rel="stylesheet" href="../static/css/skeleton.css">
+
+  <title> Recipe </title>
+ </head>
+<!-- Begin body of the recipe page -->
+
+<body>
+	<div class="container">
+		<div class ="two columns">
+			<ul>
+        	<li><a href="index.html">About</a></li>
+        	<li><a href="search.html">Search</a></li>
+        	<li><a href="upload_recipe_form.html">Submit</a></li>
+      		</ul>
+		</div>
+	</div>
+
+	<div class= "nine columns">
 		<h1>{{recipe.recipe_name}}</h1>
 		<h2>Supplemental Media</h2>
 		{% if recipe.media_type == 'Video' %}
@@ -57,6 +91,7 @@
 			<li>There are no instructions for this recipe.</li>
 			{% endfor %}
 		</ol>
-	</body>
+	</div>
 
+</body>
 </html>

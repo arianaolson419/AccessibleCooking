@@ -1,41 +1,87 @@
-<doctype html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Recipe Database Search</title>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Recipe Database Search</title>
+  <meta name="description" content="Search page for the repository of recipes">
+  <meta name="author" content="mf">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS this is in the static directory
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../static/css/normalize.css">
+  <link rel="stylesheet" href="../static/css/skeleton.css">
+
 </head>
 
-<h1>Search Recipes</h1>
-
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-
-{% from "_formhelpers.html" import render_field %}
-<form method=post>
-	<dl>
-		{{ render_field(form.select) }}
-		<br>
-		{{ render_field(form.search) }}
-		<br>
-		{{ render_field(form.tag_select) }}
-	</dl>
-	<p><input type="submit" value=Search></p>
-</form>
-
+<!-- BEGIN BODY -->
 <body>
-	{% if results %}
-	<dl>
-		{% for result in results %}
-		<dt><a href="/{{result.get_id()}}">{{result.recipe_name}}</a></dt>
-		<dd>{{result.description}}</dd>
-		{% endfor %}
-	</dl>
-	{% else %}
-	<p>No results found</p>
-	{% endif %}
+	<div class="container">
+		<!-- Navigation bar 
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<div class ="two columns">
+			<ul>
+        	<li><a href="index.html">About</a></li>
+        	<li><a href="upload_recipe_form.html">Submit</a></l>
+      		</ul>
+		</div>
+		<!-- Search begins
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<div class="nine columns">
+			<h1>Search Recipes</h1>
+
+			{% with messages = get_flashed_messages() %}
+  			{% if messages %}
+    			<ul class=flashes>
+    				{% for message in messages %}
+      				<li>{{ message }}</li>
+    			{% endfor %}
+    			</ul>
+  			{% endif %}
+			{% endwith %}
+			{% from "_formhelpers.html" import render_field %}
+
+
+			<form method=post>
+				<dl>
+					{{ render_field(form.select) }}
+					<br>
+					{{ render_field(form.search) }}
+					<br>
+					{{ render_field(form.tag_select) }}
+				</dl>
+				<p><input type="submit" value=Search></p>
+			</form>
+
+		
+		<!-- body for search results 
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		
+				{% if results %}
+			<dl>
+				{% for result in results %}
+				<dt><a href="/{{result.get_id()}}">{{result.recipe_name}}</a></dt>
+				<dd>{{result.description}}</dd>
+				{% endfor %}
+			</dl>
+			{% else %}
+			<p>No results found</p>
+			{% endif %}
+		</div>
+	</div>
 </body>
+</html>
+
+
+
+
