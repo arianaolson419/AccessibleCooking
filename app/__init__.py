@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 app.config['MONGOALCHEMY_DATABASE'] = 'recipes'
-app.config['MONGOALCHEMY_CONNECTION_STRING'] = os.environ["MONGODB_URI"]
+app.config['MONGOALCHEMY_CONNECTION_STRING'] = os.environ.get("MONGODB_URI", None)
 db = MongoAlchemy(app)
 
 from app import routes

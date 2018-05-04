@@ -13,6 +13,7 @@
 				<h3>Equipment-related Tips</h3>
 				<div name="equip_tips" id="equip_tips">
 					{% for piece in recipe.equipment %}
+					<h4>{{piece.text}}</h4>
 						{% for tip in piece.recommend_tips() %}
 							<label for=>{{tip.tip_name}}</label>
 							<input type="radio" name={{piece.text}} id="{{tip.tip_name}}" value={{ tip.get_id()}}>
@@ -23,15 +24,17 @@
 				<br>
 				<h3>Ingredient-related Tips</h3>
 				{% for piece in recipe.ingredients %}
+				<h4>{{piece.text}}</h4>
 					{% for tip in piece.recommend_tips() %}
 						<label for=>{{tip.tip_name}}</label>
-						<input type="radio" name={{piece.text}} id="{{tip.tip_name}}" value={{ tip.get_id()}}>
+						<input type="radio" name="{{piece.text}}" id="{{tip.tip_name}}" value={{ tip.get_id()}}>
 						<br>
 					{% endfor %}
 				{% endfor %}
 				<br>
 				<h3>Method-related Tips</h3>
 				{% for piece in recipe.instructions %}
+				<h4>{{piece.text}}</h4>
 					{% for tip in piece.recommend_tips() %}
 						<label for=>{{tip.tip_name}}</label>
 						<input type="radio" name={{piece.text}} id="{{tip.tip_name}}" value={{ tip.get_id()}}>

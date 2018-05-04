@@ -33,15 +33,15 @@
 		<h2>Equipment</h2>
 		<ul>
 			{% for equipment in recipe.equipment %}
-			<li>{{ equipment.text }} {% if equipment.has_tip() %} <a href="/tip/{{equipment.tip_id}}"> Tip </a> {% endif %}</li>
+				<li>{{ equipment.text }} {% if equipment.has_tip() %} <a href={{equipment.give_tip_link()}}> Tip: {{equipment.tip_name}} </a> {% endif %}</li>
 			{% else %}
-			<li>This recipe requires no equipment</li>
+				<li>This recipe requires no equipment</li>
 			{% endfor %}
 		</ul>
 		<h2>Ingredients</h2>
 			<ul>
 				{% for ingredient in recipe.ingredients %}
-				<li>{{ ingredient.text }} {% if ingredient.has_tip() %} <a href="/tip/{{ingredient.tip_id}}"> Tip </a> {% endif %}</li>
+				<li>{{ ingredient.text }} {% if ingredient.has_tip() %} <a href={{ingredient.give_tip_link()}}> Tip: {{ingredient.tip_name}} </a> {% endif %}</li>
 				{% else %}
 				<li>This recipe requires no ingredients</li>
 				{% endfor %}
@@ -49,7 +49,7 @@
 		<h2>Instructions</h2>
 		<ol>
 			{% for instruction in recipe.instructions %}
-			<li>{{ instruction.text }} {% if instruction.has_tip() %} <a href="/tip/{{instruction.tip_id}}"> Tip </a> {% endif %}</li>
+			<li>{{ instruction.text }} {% if instruction.has_tip() %} <a href={{instruction.give_tip_link()}}> Tip: {{instruction.tip_name}} </a> {% endif %}</li>
 			{% else %}
 			<li>There are no instructions for this recipe.</li>
 			{% endfor %}

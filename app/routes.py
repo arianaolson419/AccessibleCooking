@@ -95,7 +95,6 @@ def add_tips(recipe_id):
     """
     """
     if request.method == 'POST':
-        # recipe = Recipe.query.get_or_404(recipe_id)
         tips = request_to_dict(request)
         recipe = Recipe.query.get_or_404(recipe_id)
         connect_line_and_tip(recipe, tips)
@@ -113,7 +112,6 @@ def add_new_tip():
     """
     if request.method == 'POST':
         request_dict = request_to_dict(request)
-        print(request_dict)
         # TODO: implement required fields and error handling.
         new_tip = Tip(
                 tip_name=request_dict['tip_name'],
