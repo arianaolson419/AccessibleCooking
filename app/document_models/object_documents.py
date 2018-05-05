@@ -9,8 +9,9 @@ class TippedEntry(object):
     """ Entry in the recipe that can point to a tip.
     Contains the text and related tips.
     """
-    def __init__(self, line, tip_id=None, tip_name=None):
+    def __init__(self, line, line_num, tip_id=None, tip_name=None):
         self.text = line
+        self.line_num = line_num
         self.tip_id = tip_id
         self.tip_name = tip_name
 
@@ -26,6 +27,9 @@ class TippedEntry(object):
     def has_tip(self):
         if self.tip_id: return True
         return False
+
+    def get_type(self):
+        return type(self).__name__
 
     def recommend_tips(self):
         pass
@@ -68,11 +72,11 @@ class TippedEntryField(db.Field):
 
     def wrap(self, value):
         self.validate_wrap(value)
-        return {"_type":type(value).__name__, "text":value.text, 'tip_id':value.tip_id, 'tip_name':value.tip_name}
+        return {"_type":type(value).__name__, "text":value.text, "line_num":value.line_num, 'tip_id':value.tip_id, 'tip_name':value.tip_name}
 
     def unwrap(self, value):
         mapping = {"Ingredient":Ingredient,
                     "Equipment":Equipment,
                     "Instruction":Instruction}
         self.validate_unwrap(value)
-        return mapping[value['_type']](value['text'], value['tip_id'], value['tip_name'])
+        return mapping[value['_type']](line=value['text'], line_num=value['line_num'], tip_id=value['tip_id'], tip_name=value['tip_name'])
