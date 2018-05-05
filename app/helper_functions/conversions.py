@@ -165,6 +165,7 @@ def request_to_dict(request):
     return obj_dict
 
 def dict_to_recipe(request_dict):
+    print(request_dict)
     ingredients = []
     line_num = 0
     for line in request_dict['ingredients'].split('\n'):
@@ -186,6 +187,7 @@ def dict_to_recipe(request_dict):
     new_recipe = Recipe(
                 recipe_name=request_dict['recipe_name'],
                 description=request_dict['description'],
+                media_type=request_dict['media_type'],
                 ingredients=ingredients,
                 equipment=equipment,
                 instructions=instructions,
