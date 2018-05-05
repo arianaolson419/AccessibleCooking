@@ -201,10 +201,29 @@ def dict_to_recipe(request_dict):
     if request_dict['media_type'] == 'Video':
         new_recipe.video_id = video_id_from_url(request_dict['media_url'])
     elif request_dict['media_type'] ==  'Audio':
-        new_recipe.media_url == equest_dict['media_url']
+        new_recipe.media_url = request_dict['media_url']
 
     new_recipe.save()
     return new_recipe
+
+def dict_to_tip(request_dict):
+    print(request_dict)
+
+    new_tip = Tip(
+                tip_name=request_dict['tip_name'],
+                media_type=request_dict['media_type'],
+                media_url=request_dict['media_url'],
+                video_id=video_id_from_url(request_dict['media_url']),
+                difficulty=request_dict['difficulty'],
+                description=request_dict['description'],
+                equipment=request_dict['equipment'].split('\n'),
+                ingredients=request_dict['ingredients'].split('\n'),
+                techniques=request_dict['techniques'].split('\n'),
+                instructions=request_dict['instructions'].split('\n'),
+                tags=request_dict['tag'])
+
+    new_tip.save()
+    return new_tip
 
 def form_to_recipe_dict(formdata):
     mapping = {'search':'recipe_name',

@@ -18,13 +18,13 @@
                         <label for="medialink">Optional: Provide Supplemental Audio or Video for the Tip</label>
                         <br>
                         <label for="audio">Audio</label>
-                        <input type="radio" name="mediatype" id="audio" value="Audio">
+                        <input type="radio" name="media_type" id="audio" value="Audio">
                         <br>
                         <label for="video">Video</label>
-                        <input type="radio" name="mediatype" id="video" value="Video">
+                        <input type="radio" name="media_type" id="video" value="Video">
                         <br>
                         <label for="nomedia">No Supplemental Media</label>
-                        <input type="radio" name="mediatype" id="nomedia" value="No Supplemental Media">
+                        <input type="radio" name="media_type" id="nomedia" value="No Supplemental Media">
                         <br>
                         <label for="media_url">Link:</label>
                         <input type="url" name="media_url" id="media_url" placeholder="Link to audio/video here">
@@ -51,19 +51,37 @@
                         <br>
                         <label for="tipdetails">Tip Details</label>
                         <br>
-                        <label for="equipment">Equipment and ingredients:</label>
+                        <label for="equipment">Related equipment: Type each piece of equipment on its own line</label>
                         <br>
                         <textarea
                             name="equipment"
                             id="equipment"
                             rows="10"
                             cols="50"
-                            placeholder="Type each ingredient or piece of equipment on its own line"></textarea>
+                            placeholder="Type each piece of equipment on its own line"></textarea>
                         <br>
-                        <label for="instruction">Procedure:</label>
+                        <label for="ingredients">Related ingredients: Type each ingredient on its own line</label>
                         <br>
                         <textarea
-                            name="instruction"
+                            name="ingredients"
+                            id="ingredients"
+                            rows="10"
+                            cols="50"
+                            placeholder="Type each ingredient on its own line"></textarea>
+                        <br>
+                        <label for="techniques">Related techniques: Type each technique on its own line</label>
+                        <br>
+                        <textarea
+                            name="techniques"
+                            id="techniques"
+                            rows="10"
+                            cols="50"
+                            placeholder="Type each technique on its own line"></textarea>
+                        <br>
+                        <label for="instructions">Procedure:</label>
+                        <br>
+                        <textarea
+                            name="instructions"
                             id="instruction"
                             rows="10" cols="50"
                             placeholder="Type each instruction on its own line"></textarea>
