@@ -32,10 +32,11 @@
 				<p><input type="submit" value=Search></p>
 			</form>
 
-		
-		<!-- body for search results 
+
+		<!-- body for search results
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 	{% if results %}
+	<h2>Results</h2>
 	<dl>
 		{% if search_type == 'recipe' %}
 		{% for result in results %}

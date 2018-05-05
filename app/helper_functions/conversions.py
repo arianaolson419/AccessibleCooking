@@ -166,16 +166,22 @@ def request_to_dict(request):
 
 def dict_to_recipe(request_dict):
     ingredients = []
+    line_num = 0
     for line in request_dict['ingredients'].split('\n'):
-        ingredients.append(Ingredient(line))
+        ingredients.append(Ingredient(line=line, line_num=line_num))
+        line_num+=1
 
     equipment = []
+    line_num = 0
     for line in request_dict['equipment'].split('\n'):
-        equipment.append(Equipment(line))
+        equipment.append(Equipment(line=line, line_num=line_num))
+        line_num+=1
 
     instructions = []
+    line_num = 0
     for line in request_dict['instructions'].split('\n'):
-        instructions.append(Instruction(line))
+        instructions.append(Instruction(line=line, line_num=line_num))
+        line_num+=1
 
     new_recipe = Recipe(
                 recipe_name=request_dict['recipe_name'],
@@ -255,32 +261,37 @@ def get_all_recipe_text(recipe_obj):
     return recipe_text
 
 def connect_line_and_tip(recipe_obj, tips):
-    for line_to_match, tip in tips.items():
-        matched = False
+    for matcher, tip in tips.items():
         if tip != "Add Tips":
             tip_obj = Tip.query.get_or_404(tip)
-            if not matched:
-                for instruction in recipe_obj.instructions:
-                    first_word = instruction.text.partition(' ')[0].strip()
-                    if first_word ==line_to_match.strip() and not instruction.has_tip():
-                        instruction.set_tip(tip, tip_obj.tip_name)
-                        matched = True
-                        break
+            [tip_type, line_num] = matcher.split('-')
+            line_num = int(line_num)
+            match_dict = {'Instruction':recipe_obj.instructions,
+                          'Ingredient':recipe_obj.ingredients,
+                          'Equipment':recipe_obj.equipment}
+            category = match_dict[tip_type][line_num].set_tip(tip, tip_obj.tip_name)
+            # if not matched:
+            #     for instruction in recipe_obj.instructions:
+            #         first_word = instruction.text.partition(' ')[0].strip()
+            #         if first_word ==line_to_match.strip() and not instruction.has_tip():
+            #             instruction.set_tip(tip, tip_obj.tip_name)
+            #             matched = True
+            #             break
 
-            if not matched:
-                for ingredient in recipe_obj.ingredients:
-                    first_word = ingredient.text.partition(' ')[0].strip()
-                    if first_word==line_to_match.strip() and not ingredient.has_tip():
-                        ingredient.set_tip(tip, tip_obj.tip_name)
-                        matched = True
-                        break
+            # if not matched:
+            #     for ingredient in recipe_obj.ingredients:
+            #         first_word = ingredient.text.partition(' ')[0].strip()
+            #         if first_word==line_to_match.strip() and not ingredient.has_tip():
+            #             ingredient.set_tip(tip, tip_obj.tip_name)
+            #             matched = True
+            #             break
 
-            if not matched:
-                for equip in recipe_obj.equipment:
-                    first_word = equip.text.partition(' ')[0].strip()
-                    if first_word==line_to_match.strip() and not equip.has_tip():
-                        equip.set_tip(tip, tip_obj.tip_name)
-                        matched = True
-                        break
+            # if not matched:
+            #     for equip in recipe_obj.equipment:
+            #         first_word = equip.text.partition(' ')[0].strip()
+            #         if first_word==line_to_match.strip() and not equip.has_tip():
+            #             equip.set_tip(tip, tip_obj.tip_name)
+            #             matched = True
+            #             break
 
     recipe_obj.save()
