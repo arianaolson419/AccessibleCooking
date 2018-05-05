@@ -76,5 +76,26 @@ class Recipe(db.Document):
     def get_id(self):
         return str(self.mongo_id)
 
+    def equipment_list(self):
+        equip = []
+        for piece in self.equipment:
+            equip.append(piece.text)
+
+        return equip
+
+    def ingredient_list(self):
+        ingredient = []
+        for item in self.ingredients:
+            ingredient.append(item.text)
+
+        return ingredient
+
+    def instruction_list(self):
+        instruction = []
+        for step in self.instructions:
+            instruction.append(step.text)
+
+        return instruction
+
     def link_tips(self):
         pass

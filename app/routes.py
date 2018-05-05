@@ -62,21 +62,22 @@ def edit_recipe(recipe_id):
         return render_template('edit_recipe.html', recipe=recipe, tips=tips)
     if request.method == 'POST':
         request_dict = request_to_dict(request)
-        linked_tips = [Tip.query.get(tiplink) for tiplink in request_dict['tiplinks'].split('\n')]
-        recipe.tips = [tip for tip in linked_tips if tip is not None]
-        recipe.recipe_name = request_dict['recipe_name']
-        recipe.media_type = request_dict['media_type']
-        recipe.media_url = request_dict['media_url']
-        recipe.video_id = video_id_from_url(request_dict['media_url'])
-        recipe.difficulty = request_dict['difficulty']
-        recipe.description = request_dict['description']
-        recipe.time = request_dict['time']
-        recipe.servings = request_dict['servings']
-        recipe.equipment = request_dict['equipment'].split('\n')
-        recipe.ingredients = request_dict['ingredients'].split('\n')
-        recipe.instructions = request_dict['instructions'].split('\n')
-        recipe.tags = request_dict['tag']
-        recipe.save()
+        recipe = dict_to_recipe(request_dict)
+        # linked_tips = [Tip.query.get(tiplink) for tiplink in request_dict['tiplinks'].split('\n')]
+        # recipe.tips = [tip for tip in linked_tips if tip is not None]
+        # recipe.recipe_name = request_dict['recipe_name']
+        # recipe.media_type = request_dict['media_type']
+        # recipe.media_url = request_dict['media_url']
+        # recipe.video_id = video_id_from_url(request_dict['media_url'])
+        # recipe.difficulty = request_dict['difficulty']
+        # recipe.description = request_dict['description']
+        # recipe.time = request_dict['time']
+        # recipe.servings = request_dict['servings']
+        # recipe.equipment = request_dict['equipment'].split('\n')
+        # recipe.ingredients = request_dict['ingredients'].split('\n')
+        # recipe.instructions = request_dict['instructions'].split('\n')
+        # recipe.tags = request_dict['tag']
+        # recipe.save()
         return redirect('/recipe/' + recipe.get_id())
 
 @app.route('/upload_recipe', methods=['GET', 'POST'])

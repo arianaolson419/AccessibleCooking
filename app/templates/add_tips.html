@@ -16,7 +16,7 @@
 					<h4>{{piece.text}}</h4>
 						{% for tip in piece.recommend_tips() %}
 							<label for=>{{tip.tip_name}}</label>
-							<input type="radio" name={{piece.text}} id="{{tip.tip_name}}" value={{ tip.get_id()}}>
+							<input type="radio" name="{{piece.get_type()}}-{{piece.line_num}}" id="{{tip.tip_name}}" value={{ tip.get_id()}}>
 							<br>
 						{% endfor %}
 					{% endfor %}
@@ -27,7 +27,7 @@
 				<h4>{{piece.text}}</h4>
 					{% for tip in piece.recommend_tips() %}
 						<label for=>{{tip.tip_name}}</label>
-						<input type="radio" name="{{piece.text}}" id="{{tip.tip_name}}" value={{ tip.get_id()}}>
+						<input type="radio" name="{{piece.get_type()}}-{{piece.line_num}}" id="{{tip.tip_name}}" value={{ tip.get_id()}}>
 						<br>
 					{% endfor %}
 				{% endfor %}
@@ -37,7 +37,7 @@
 				<h4>{{piece.text}}</h4>
 					{% for tip in piece.recommend_tips() %}
 						<label for=>{{tip.tip_name}}</label>
-						<input type="radio" name={{piece.text}} id="{{tip.tip_name}}" value={{ tip.get_id()}}>
+						<input type="radio" name="{{piece.get_type()}}-{{piece.line_num}}" id="{{tip.tip_name}}" value={{ tip.get_id()}}>
 						<br>
 					{% endfor %}
 				{% endfor %}
