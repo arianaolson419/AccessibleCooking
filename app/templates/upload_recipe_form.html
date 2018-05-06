@@ -15,19 +15,22 @@
 						<br><br>
 					</div>
 					<div name="medialink" id="medialink">
-						<label for="medialink">Optional: Provide Supplemental Audio or Video to the Recipe</label>
-						<br>
-						<label for="audio">Audio</label>
-						<input type="radio" name="media_type" id="audio" value="Audio">
-						<br>
-						<label for="video">Video</label>
-						<input type="radio" name="media_type" id="video" value="Video">
+						<label for="medialink">Optional: Provide a supplemental video or a link to an external website to the recipe</label>
 						<br>
 						<label for="nomedia">No Supplemental Media</label>
 						<input type="radio" name="media_type" id="nomedia" value="No Supplemental Media">
 						<br>
-						<label for="media_url">Link:</label>
-						<input type="url" name="media_url" id="media_url" placeholder="Link to audio/video here">
+						<label for="video">Video</label>
+						<input type="radio" name="media_type" id="video" value="Video">
+						<br>
+						<label for="externlink">External Link</label>
+						<!-- Note: 'Audio' is for backwards compatibility
+	      					TODO: Update db fields and routes to reflect external link field
+						-->
+						<input type="radio" name="media_type" id="externlink" value="Audio">
+						<br>
+						<label for="media_url">Link to YouTube video or external website here:</label>
+						<input type="url" name="media_url" id="media_url" placeholder="Paste link here">
 					</div>
 					<div name="recipeinfo" id="recipeinfo">
 						<br>

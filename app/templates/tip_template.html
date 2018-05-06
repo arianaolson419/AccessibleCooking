@@ -4,6 +4,8 @@
 	<meta name="description" content="Template in which to render information about a tip">
 	{% endblock %}
 	{% block body %}
+	<div class="container">
+		<div class= "nine columns">
 		<h1>{{ tip.tip_name }}</h1>
 		<h2>Supplemental Media</h2>
 			{% if tip.media_type == 'Video' %}
@@ -14,8 +16,8 @@
 				allowfullscreen id="video"></iframe>
 			{% endif %}
 			{% if tip.media_type == 'Audio' %}
-			<label for="audio">Audio Supplement</label>
-			<a href={{ tip.media_url }} target="_blank" id="audio">Link to supplemental audio. Opens in new tab</a>
+			<label for="audio">External Resource</label>
+			<a href={{ tip.media_url }} target="_blank" id="audio">Link to external resource. Opens in new tab</a>
 			{% endif %}
 			{% if tip.media_type == 'No Supplemental Media' %}
 			<p>There is no supplemental media for this tip</p>
@@ -43,4 +45,6 @@
 				<li>{{ instruction }}</li>
 				{% endfor %}
 			</ol>
+		</div>
+	</div>
 	{% endblock %}
