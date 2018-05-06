@@ -1,4 +1,3 @@
-*.lock
 *.pyc
 *.swp
 __pycache__/

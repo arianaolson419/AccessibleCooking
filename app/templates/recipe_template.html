@@ -1,70 +1,65 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	<title>Recipes</title>
-	</head>
-	<body>
-		<h1>{{recipe.recipe_name}}</h1>
-		<h2>Supplemental Media</h2>
-		{% if recipe.media_type == 'Video' %}
-		<label for="video">Video Supplement</label>
-		<br>
-		<iframe width="854" height="480"
-		      src={{ "https://www.youtube.com/embed/" + recipe.video_id }} frameborder="0"
-		allowfullscreen id="video"></iframe>
-		{% endif %}
+{% extends 'layout.html' %}
+{% block title_desc %}
+  <title>Recipe Page</title>
+  <meta name="description" content="template that fills with recipe contents">
+  {% endblock %}
+  {% block body %}
+	<div class="container">
+		<div class= "nine columns">
+			<h1>{{recipe.recipe_name}}</h1>
+			<h2>Supplemental Media</h2>
+			{% if recipe.media_type == 'Video' %}
+			<label for="video">Video Supplement</label>
+			<br>
+			<iframe width="854" height="480"
+			      src={{ "https://www.youtube.com/embed/" + recipe.video_id }} frameborder="0"
+			allowfullscreen id="video"></iframe>
+			{% endif %}
 
-		{% if recipe.media_type == 'Audio' %}
-		<br>
-		<label for="audio">Audio Supplement</label>
-		<br>
-		<a href={{ recipe.media_url }} target="_blank" id="audio">Navigate to supplemental audio. Opens in new tab.</a>
-		{% endif %}
+			{% if recipe.media_type == 'Audio' %}
+			<br>
+			<label for="audio">Audio Supplement</label>
+			<br>
+			<a href={{ recipe.media_url }} target="_blank">Navigate to supplemental audio. Opens in new tab</a>
+			{% endif %}
 
-		{% if recipe.media_type == 'No Supplemental Media' %}
-		<p>There is no supplemental media for this recipe.</p>
-		{% endif %}
-		<h2>About</h2>
-		<h3>Description</h3>
-		<p>{{recipe.description}}</p>
-		<h3>Difficulty</h3>
-		<p>{{recipe.difficulty}}</p>
-		<h3>Time</h3>
-		<p>{{recipe.time}}</p>
-		<h3>Servings</h3>
-		<p>{{recipe.servings}}</p>
-		<h2>Equipment</h2>
-		<ul>
-			{% for equipment in recipe.equipment %}
-			<li>{{equipment}}</li>
-			{% else %}
-			<li>This recipe requires no equipment</li>
-			{% endfor %}
-		</ul>
-		<h2>Ingredients</h2>
+			{% if recipe.media_type == 'No Supplemental Media' %}
+			<p>There is no supplemental media for this recipe.</p>
+			{% endif %}
+			<h2>About</h2>
+			<h3>Description</h3>
+			<p>{{recipe.description}}</p>
+			<h3>Difficulty</h3>
+			<p>{{recipe.difficulty}}</p>
+			<h3>Time</h3>
+			<p>{{recipe.time}}</p>
+			<h3>Servings</h3>
+			<p>{{recipe.servings}}</p>
+			<h2>Equipment</h2>
+			<ul>
+				{% for equipment in recipe.equipment %}
+					<li>{{ equipment.text }} {% if equipment.has_tip() %} <a href={{equipment.give_tip_link()}}> Tip: {{equipment.tip_name}} </a> {% endif %}</li>
+				{% else %}
+					<li>This recipe requires no equipment</li>
+				{% endfor %}
+			</ul>
+			<h2>Ingredients</h2>
 			<ul>
 				{% for ingredient in recipe.ingredients %}
-				<li>{{ ingredient }}</li>
+				<li>{{ ingredient.text }} {% if ingredient.has_tip() %} <a href={{ingredient.give_tip_link()}}> Tip: {{ingredient.tip_name}} </a> {% endif %}</li>
 				{% else %}
 				<li>This recipe requires no ingredients</li>
 				{% endfor %}
 			</ul>
-		<h2>Instructions</h2>
-		<ol>
-			{% for instruction in recipe.instruction %}
-			<li>{{ instruction }}</li>
-			{% else %}
-			<li>There are no instructions for this recipe.</li>
-			{% endfor %}
-		</ol>
-		<h2>Related Tips</h2>
-		<ul>
-			{% for tip in recipe.tips %}
-			<li><a href={{ "/" + tip.get_id() }} target="_blank">{{ tip.name }}</a></li>
-			{% else %}
-			<li>There are currently no related tips associated with this recipe.</li>
-			{% endfor %}
-		</ul>
-	</body>
-
-</html>
+			<h2>Instructions</h2>
+			<ol>
+				{% for instruction in recipe.instructions %}
+				<li>{{ instruction.text }} {% if instruction.has_tip() %} <a href={{instruction.give_tip_link()}}> Tip: {{instruction.tip_name}} </a> {% endif %}</li>
+				{% else %}
+				<li>There are no instructions for this recipe.</li>
+				{% endfor %}
+			</ol>
+			<p><a href={{ "/edit_recipe/" + recipe.get_id() }}>Edit this recipe</a></p>
+		</div>
+	</div>
+{% endblock %}

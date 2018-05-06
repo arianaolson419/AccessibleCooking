@@ -1,34 +1,42 @@
-<doctype html>
-<head>
-	<title>Recipe Database Search</title>
-</head>
+{% extends 'layout.html' %}
+  <title>Recipe Database Search</title>
+  <meta name="description" content="Search page for the repository of recipes">
 
-<h1>Search Recipes</h1>
+{% block body %}
+	<div class="container">
+		<!-- Search begins
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<div class="nine columns">
+			<h1>Search Recipes</h1>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+			{% with messages = get_flashed_messages() %}
+  			{% if messages %}
+    			<ul class=flashes>
+    				{% for message in messages %}
+      				<li>{{ message }}</li>
+    			{% endfor %}
+    			</ul>
+  			{% endif %}
+			{% endwith %}
+			{% from "_formhelpers.html" import render_field %}
 
-{% from "_formhelpers.html" import render_field %}
-<form method=post>
-	<dl>
-		{{ render_field(form.select) }}
-		<br>
-		{{ render_field(form.search) }}
-		<br>
-		{{ render_field(form.tag_select) }}
-	</dl>
-	<p><input type="submit" value=Search></p>
-</form>
 
-<body>
+			<form method=post>
+				<dl>
+					{{ render_field(form.select) }}
+					<br>
+					{{ render_field(form.search) }}
+					<br>
+					{{ render_field(form.tag_select) }}
+				</dl>
+				<p><input type="submit" value=Search></p>
+			</form>
+
+
+		<!-- body for search results
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 	{% if results %}
+	<h2>Results</h2>
 	<dl>
 		{% if search_type == 'recipe' %}
 		{% for result in results %}
@@ -48,3 +56,4 @@
 	<p>No results found</p>
 	{% endif %}
 </body>
+{% endblock %}
