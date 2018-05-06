@@ -35,8 +35,8 @@
 
 		<!-- body for search results
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	{% if results %}
 	<h2>Results</h2>
+	{% if results and results.first() %}
 	<dl>
 		{% if search_type == 'recipe' %}
 		{% for result in results %}

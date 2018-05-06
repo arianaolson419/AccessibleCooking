@@ -1,5 +1,6 @@
 from flask_mongoalchemy import *
 from bson.objectid import *
+from app.helper_functions.media import video_id_from_url
 from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
 from app.document_models.object_documents import Instruction, Ingredient, Equipment
@@ -165,6 +166,7 @@ def request_to_dict(request):
     return obj_dict
 
 def dict_to_recipe(request_dict):
+    print(request_dict)
     ingredients = []
     line_num = 0
     for line in request_dict['ingredients'].split('\n'):
@@ -186,6 +188,7 @@ def dict_to_recipe(request_dict):
     new_recipe = Recipe(
                 recipe_name=request_dict['recipe_name'],
                 description=request_dict['description'],
+                media_type=request_dict['media_type'],
                 ingredients=ingredients,
                 equipment=equipment,
                 instructions=instructions,
@@ -195,8 +198,32 @@ def dict_to_recipe(request_dict):
                 tags=request_dict['tag'],
                 tips=[])
 
+    if request_dict['media_type'] == 'Video':
+        new_recipe.video_id = video_id_from_url(request_dict['media_url'])
+    elif request_dict['media_type'] ==  'Audio':
+        new_recipe.media_url = request_dict['media_url']
+
     new_recipe.save()
     return new_recipe
+
+def dict_to_tip(request_dict):
+    print(request_dict)
+
+    new_tip = Tip(
+                tip_name=request_dict['tip_name'],
+                media_type=request_dict['media_type'],
+                media_url=request_dict['media_url'],
+                video_id=video_id_from_url(request_dict['media_url']),
+                difficulty=request_dict['difficulty'],
+                description=request_dict['description'],
+                equipment=request_dict['equipment'].split('\n'),
+                ingredients=request_dict['ingredients'].split('\n'),
+                techniques=request_dict['techniques'].split('\n'),
+                instructions=request_dict['instructions'].split('\n'),
+                tags=request_dict['tag'])
+
+    new_tip.save()
+    return new_tip
 
 def form_to_recipe_dict(formdata):
     mapping = {'search':'recipe_name',
@@ -270,28 +297,5 @@ def connect_line_and_tip(recipe_obj, tips):
                           'Ingredient':recipe_obj.ingredients,
                           'Equipment':recipe_obj.equipment}
             category = match_dict[tip_type][line_num].set_tip(tip, tip_obj.tip_name)
-            # if not matched:
-            #     for instruction in recipe_obj.instructions:
-            #         first_word = instruction.text.partition(' ')[0].strip()
-            #         if first_word ==line_to_match.strip() and not instruction.has_tip():
-            #             instruction.set_tip(tip, tip_obj.tip_name)
-            #             matched = True
-            #             break
-
-            # if not matched:
-            #     for ingredient in recipe_obj.ingredients:
-            #         first_word = ingredient.text.partition(' ')[0].strip()
-            #         if first_word==line_to_match.strip() and not ingredient.has_tip():
-            #             ingredient.set_tip(tip, tip_obj.tip_name)
-            #             matched = True
-            #             break
-
-            # if not matched:
-            #     for equip in recipe_obj.equipment:
-            #         first_word = equip.text.partition(' ')[0].strip()
-            #         if first_word==line_to_match.strip() and not equip.has_tip():
-            #             equip.set_tip(tip, tip_obj.tip_name)
-            #             matched = True
-            #             break
 
     recipe_obj.save()
