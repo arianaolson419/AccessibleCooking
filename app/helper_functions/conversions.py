@@ -165,8 +165,7 @@ def request_to_dict(request):
             obj_dict[k] = check_for_fractions(v[0])
     return obj_dict
 
-def dict_to_recipe(request_dict):
-    print(request_dict)
+def dict_to_recipe(request_dict, recipe=None):
     ingredients = []
     line_num = 0
     for line in request_dict['ingredients'].split('\n'):
@@ -185,26 +184,48 @@ def dict_to_recipe(request_dict):
         instructions.append(Instruction(line=line, line_num=line_num))
         line_num+=1
 
-    new_recipe = Recipe(
-                recipe_name=request_dict['recipe_name'],
-                description=request_dict['description'],
-                media_type=request_dict['media_type'],
-                ingredients=ingredients,
-                equipment=equipment,
-                instructions=instructions,
-                difficulty=request_dict['difficulty'],
-                servings=request_dict['servings'],
-                time=request_dict['time'],
-                tags=request_dict['tag'],
-                tips=[])
+    if recipe:
+        recipe.recipe_name=request_dict['recipe_name']
+        recipe.description=request_dict['description']
+        recipe.media_type=request_dict['media_type']
+        recipe.ingredients=ingredients
+        recipe.equipment=equipment
+        recipe.instructions=instructions
+        recipe.difficulty=request_dict['difficulty']
+        recipe.servings=request_dict['servings']
+        recipe.time=request_dict['time']
+        recipe.tags=request_dict['tag']
+        recipe.tips=[]
 
-    if request_dict['media_type'] == 'Video':
-        new_recipe.video_id = video_id_from_url(request_dict['media_url'])
-    elif request_dict['media_type'] ==  'Audio':
-        new_recipe.media_url = request_dict['media_url']
+        if request_dict['media_type'] == 'Video':
+            recipe.video_id = video_id_from_url(request_dict['media_url'])
+        elif request_dict['media_type'] == 'Audio':
+            new_recipe.media_url = request_dict['media_url']
 
-    new_recipe.save()
-    return new_recipe
+        recipe.save()
+        return recipe
+        
+    else:
+        new_recipe = Recipe(
+                    recipe_name=request_dict['recipe_name'],
+                    description=request_dict['description'],
+                    media_type=request_dict['media_type'],
+                    ingredients=ingredients,
+                    equipment=equipment,
+                    instructions=instructions,
+                    difficulty=request_dict['difficulty'],
+                    servings=request_dict['servings'],
+                    time=request_dict['time'],
+                    tags=request_dict['tag'],
+                    tips=[])
+
+        if request_dict['media_type'] == 'Video':
+            new_recipe.video_id = video_id_from_url(request_dict['media_url'])
+        elif request_dict['media_type'] ==  'Audio':
+            new_recipe.media_url = request_dict['media_url']
+
+        new_recipe.save()
+        return new_recipe
 
 def dict_to_tip(request_dict):
     print(request_dict)
