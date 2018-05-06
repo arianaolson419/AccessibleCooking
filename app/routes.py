@@ -5,7 +5,7 @@ from app.forms import RecipeSearchForm
 from app import app
 
 from app.helper_functions.media import video_id_from_url
-from app.helper_functions.conversions import request_to_dict, form_to_recipe_dict, form_to_tip_dict, dict_to_recipe, connect_line_and_tip
+from app.helper_functions.conversions import request_to_dict, form_to_recipe_dict, form_to_tip_dict, dict_to_recipe, dict_to_tip, connect_line_and_tip
 
 @app.route('/')
 @app.route('/index')
@@ -114,19 +114,7 @@ def add_new_tip():
     if request.method == 'POST':
         request_dict = request_to_dict(request)
         # TODO: implement required fields and error handling.
-        new_tip = Tip(
-                tip_name=request_dict['tip_name'],
-                media_type=request_dict['media_type'],
-                media_url=request_dict['media_url'],
-                video_id=video_id_from_url(request_dict['media_url']),
-                difficulty=request_dict['difficulty'],
-                description=request_dict['description'],
-                equipment=request_dict['equipment'].split('\n'),
-                ingredients=request_dict['ingredients'].split('\n'),
-                instructions=request_dict['instructions'].split('\n'),
-                tags=request_dict['tag'])
-
-        new_tip.save()
+        new_tip = dict_to_tip(request_dict)
         return render_template('upload_tip_success.html')
     return render_template('upload_tip_form.html')
 

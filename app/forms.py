@@ -16,7 +16,7 @@ class RecipeSearchForm(Form):
 			('Lunch', 'Lunch'),
 			('Dessert', 'Dessert')]
 	select = SelectField('Search the Repository:', choices = choices)
-	search = StringField('')
+	search = StringField('Search Box', description='Enter search term')
 	tag_select = MultiCheckboxField('Tags', choices = tags)
 
 class AddTipsForm(Form):
