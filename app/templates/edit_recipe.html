@@ -3,8 +3,9 @@
 	<title>Edit Recipe</title>
 {% endblock %}
 {% block body %}
+	<div class="container">
+		<div class= "nine columns">
 	<h1>Edit Recipes</h1>
-
 	<ol id="demo"></ol>
 	<form id="upload_recipe_form" method="post">
 		<div name="recipename" id="recipename">
@@ -13,33 +14,30 @@
 			<br><br>
 		</div>
 		<div name="medialink" id="medialink">
-			<label for="medialink">Optional: Provide Supplemental Audio or Video to the Recipe</label>
-			<br>
-			{% if recipe.media_type == 'Audio' %}
-			<input type="radio" name="media_type" id="audio" value="Audio" checked="checked">
-			{% else %}
-			<input type="radio" name="media_type" id="audio" value="Audio">
-			{% endif %}
-			<label for="audio">Audio</label>
-
-			<br>
-			{% if recipe.media_type == 'Video' %}
-			<input type="radio" name="media_type" id="video" value="Video" checked="checked">
-			{% else %}
-			<input type="radio" name="media_type" id="video" value="Video">
-			{% endif %}
-			<label for="video">Video</label>
-
-			<br>
+						<label for="medialink">Optional: Provide a supplemental video or a link to an external website to the recipe</label>
+			<label for="nomedia">No Supplemental Media</label>
 			{% if recipe.media_type == 'No Supplemental Media' %}
 			<input type="radio" name="media_type" id="nomedia" value="No Supplemental Media" checked="checked">
 			{% else %}
 			<input type="radio" name="media_type" id="nomedia" value="No Supplemental Media">
 			{% endif %}
-			<label for="nomedia">No Supplemental Media</label>
+			<br>
+			<label for="video">Video</label>
+			{% if recipe.media_type == 'Video' %}
+			<input type="radio" name="media_type" id="video" value="Video" checked="checked">
+			{% else %}
+			<input type="radio" name="media_type" id="video" value="Video">
+			{% endif %}
+			<br>
+			<label for="audio">External Link</label>
+			{% if recipe.media_type == 'Audio' %}
+			<input type="radio" name="media_type" id="audio" value="Audio" checked="checked">
+			{% else %}
+			<input type="radio" name="media_type" id="audio" value="Audio">
+			{% endif %}
 
 			<br>
-			<label for="media_url">Link:</label>
+						<label for="media_url">Link to YouTube video or external website here:</label>
 			<input type="url" name="media_url" id="media_url" value={{ recipe.media_url }}>
 		</div>
 		<div name="recipeinfo" id="recipeinfo">
@@ -160,4 +158,6 @@
 		<br><br>
 		<input type="submit" name="submit_recipe" value="Revise Recipe">
 	</form>
+		</div>
+	</div>
 {% endblock %}
