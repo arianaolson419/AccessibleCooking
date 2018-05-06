@@ -6,6 +6,7 @@
 {% block body %}
 		<div class="nine columns">
 			<h1>Upload Recipe</h1>
+			<p>If this is the first time you are submitting a recipe, please look over the <a href="/styleguide">style guide</a>.</p>
 			<ol id="demo"></ol>
 			<form id="upload_recipe_form" method="post">
 					<div name="recipename" id="recipename">
@@ -42,7 +43,7 @@
 						<br>
 						<label for="description">Description:</label>
 						<br>
-						<textarea name="description" id="desciption" rows="10" cols="50"
+						<textarea name="description" id="description" rows="10" cols="50"
 							placeholder="Write a quick description here."></textarea>
 						<br>
 						<label for="time">Time:</label>
@@ -103,8 +104,10 @@
 							<br>
 						</div>
 					</div>
+					<!--
 			<br>
 			<input type="button" name="review_recipe" value="Review Recipe">
+					-->
 			<br><br>
 			<input type="submit" name="submit_recipe" value="Submit Recipe">
 	</form>

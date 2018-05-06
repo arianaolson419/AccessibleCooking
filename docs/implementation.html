@@ -23,7 +23,7 @@ Equipment, ingredient, and procedure lists are all html ordered lists, input thr
 readers easily navigate separate items in lists, so users can navigate recipe and tip needs with ease.
 </p>
 <p>
-Supplemental media is linked via youtube, which has standardized interactions. This is embedded with a link in the html.
+Supplemental media is linked via YouTube, which has standardized interactions. This is embedded with a link in the html.
 </p>
 
 <h3> CSS </h3>
@@ -48,12 +48,17 @@ getskeleton.com .
 
 <h2> Back End </h2>
 <p>
-TODO write back end implementation here
+The back end server of Sightles Chef is written in Python using <a href=http://flask.pocoo.org>Flask</a>.
+</p>
+<p>
+Once a recipe or tip has been submitted, some postprocessing of the submission is done on the backend in order to automatically format the recipes to be more accessible. This includes changing fraction symbols into full words that can be read correctly by a screen reader. For example, one half is commonly typed as 'one slash two', which is how a screen reader interprets the text instead of saying the more natural 'one half'. Screen readers also do not naturally read out fraction glyphs. We also automatically format ingredients, equipment, and instructions into lists on the back end and create embed codes for YouTube video links.
+
+Recipe and tip pages are generated dynamically by the back end upon navigatng to the correct url, instead of each page being stored individually.
 </p>
 
 <h2> Database </h2>
 <p>
- Sightless Chef uses a flask module known as Flask-MongoAlchemy to interface with a mongo database hosted by mlabs. We have two main structures (known as documents) stored in this database: Recipes and Tips. As the user uploads information, searches the website, and looks at content, these documents are fectched from the database and displayed. Some information—such as recipe and tip names, description, and difficulty—are required, whereas others may vary.
+ Sightless Chef uses a flask module known as <a href="https://pythonhosted.org/Flask-MongoAlchemy/">Flask-MongoAlchemy</a> to interface with a mongo database hosted by <a href="http://docs.mlab.com/">mLab</a>. We have two main structures (known as documents) stored in this database: Recipes and Tips. As the user uploads information, searches the website, and looks at content, these documents are fectched from the database and displayed. Some information—such as recipe and tip names, description, and difficulty—are required, whereas others may vary.
 </p>
 
 <p>
