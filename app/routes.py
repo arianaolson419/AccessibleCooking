@@ -66,9 +66,8 @@ def edit_recipe(recipe_id):
         return render_template('edit_recipe.html', recipe=recipe, tips=tips)
     if request.method == 'POST':
         request_dict = request_to_dict(request)
-        print(request_dict)
         recipe = dict_to_recipe(request_dict, recipe)
-        return redirect('/recipe/' + recipe.get_id())
+        return redirect('/add_tips/' + recipe.get_id())
 
 @app.route('/upload_recipe', methods=['GET', 'POST'])
 def add_new_recipe():
@@ -89,7 +88,7 @@ def add_tips(recipe_id):
         tips = request_to_dict(request)
         recipe = Recipe.query.get_or_404(recipe_id)
         connect_line_and_tip(recipe, tips)
-        return render_template('upload_recipe_success.html')
+        return render_template('upload_recipe_success.html', recipe_id=recipe.get_id())
     recipe = Recipe.query.get_or_404(recipe_id)
     equip_tips = Tip.query.is_type('equipment')
     ingred_tips = Tip.query.is_type('ingredient')
@@ -105,7 +104,7 @@ def add_new_tip():
         request_dict = request_to_dict(request)
         # TODO: implement required fields and error handling.
         new_tip = dict_to_tip(request_dict)
-        return render_template('upload_tip_success.html')
+        return render_template('upload_tip_success.html', tip_id=tip.get_id())
     return render_template('upload_tip_form.html')
 
 @app.route('/recipe/<recipe_id>', methods=['GET', 'POST'])
