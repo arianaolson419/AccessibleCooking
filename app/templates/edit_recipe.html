@@ -9,7 +9,7 @@
 	<form id="upload_recipe_form" method="post">
 		<div name="recipename" id="recipename">
 			<label for="recipe_name">Recipe Name: </label>
-			<input type="text" name="recipe_name" id="recipe_name" value={{ recipe.recipe_name }}>
+			<input type="text" name="recipe_name" id="recipe_name" value="{{ recipe.recipe_name }}">
 			<br><br>
 		</div>
 		<div name="medialink" id="medialink">
@@ -73,10 +73,10 @@
 							  >{{ recipe.description }}</textarea>
 			<br>
 			<label for="time">Time:</label>
-			<input type="text" name="time" id="time" value={{ recipe.time }}>
+			<input type="text" name="time" id="time" value="{{ recipe.time }}">
 			<br>
 			<label for=servings>Yield:</label>
-			<input type="text" name="servings" id="servings" value={{ recipe.servings }}>
+			<input type="text" name="servings" id="servings" value="{{ recipe.servings }}">
 			<br>
 		</div>
 		<div name="recipedetails" id="recipedetails">
