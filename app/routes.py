@@ -12,6 +12,10 @@ from app.helper_functions.conversions import request_to_dict, form_to_recipe_dic
 def index():
     return render_template('index.html')
 
+@app.route('/styleguide')
+def styleguide():
+    return render_template('style_guide.html')
+
 @app.route('/recipes')
 def recipe():
     s_form = RecipeSearchForm(request.form)
