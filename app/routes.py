@@ -1,7 +1,7 @@
 from flask import flash, render_template, jsonify, request, redirect
 from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
-from app.forms import RecipeSearchForm
+from app.forms import RecipeSearchForm, ContactForm
 from app import app
 
 from app.helper_functions.media import video_id_from_url
@@ -120,3 +120,12 @@ def specific_tip(tip_id):
     tip = Tip.query.get_or_404(tip_id)
     return render_template('tip_template.html', tip=tip)
 
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    form = ContactForm(request.form)
+    if request.method == 'POST':
+        if form.validate()==False:
+            return render_template('contact.html', form=form)
+        else:
+            return "Thank you!"
+    return render_template('contact.html', form=form)
