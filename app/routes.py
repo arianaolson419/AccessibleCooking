@@ -141,6 +141,6 @@ def contact():
                 flash("Message sent! Thank you!")
                 return render_template('contact.html', form=ContactForm())
             except AssertionError:
-                flash("There was an error in sending the data. Deepest Apologies :(")
+                flash("There was an error in sending the data. Deepest apologies :(")
                 return render_template('contact.html', form=form)
     return render_template('contact.html', form=form)
