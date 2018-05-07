@@ -1,6 +1,4 @@
 import os
-os.environ["MONGODB_URI"] = 'mongodb://localhost'
-
 from app import app
 
 

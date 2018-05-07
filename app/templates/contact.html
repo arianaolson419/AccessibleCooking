@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block title_desc %}
+  <title>Contact Us</title>
+  <meta name="description" content="Contact us for any feedback or questions.">
+{% endblock %}
+{% block body %}
+  <div class="container">
+    <div class="nine columns" > <!-- should be sixteen columns -->
+      <h1>Contact Us</h1>
+      <p>
+        We would love to hear any questions and feedback you have!
+      </p>
+      {% for field, message in form.errors.items() %}
+        <div class="flash">{{ message[0] }}</div>
+      {% endfor %}
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+      <form method=post>
+                       
+            {{ form.name.label }}
+            {{ form.name }}
+
+            {{ form.email.label }}
+            {{ form.email }}
+         
+            {{ form.subject.label }}
+            {{ form.subject }}
+         
+            {{ form.message.label }}
+            {{ form.message }}
+         
+            {{ form.submit }}
+  </form>
+</div>
+</div>
+{% endblock %}

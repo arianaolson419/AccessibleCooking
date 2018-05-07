@@ -9,6 +9,7 @@ flask-wtf = "*"
 flask-mongoalchemy = "*"
 pytz = "*"
 gunicorn = "*"
+flask-mail = "*"
 
 [dev-packages]
 

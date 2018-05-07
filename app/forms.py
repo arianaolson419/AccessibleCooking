@@ -1,6 +1,6 @@
 # forms.py
 
-from wtforms import Form, StringField, SelectField, SelectMultipleField, widgets
+from wtforms import Form, StringField, SelectField, SelectMultipleField, TextAreaField, SubmitField, validators, widgets
 from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
 
@@ -21,3 +21,10 @@ class RecipeSearchForm(Form):
 
 class AddTipsForm(Form):
 	pass
+
+class ContactForm(Form):
+	name = StringField("Name", [validators.InputRequired("Name is required")])
+	email = StringField("Email", [validators.InputRequired("Email is required"), validators.Email("Must input a valid email")])
+	subject = StringField("Subject", [validators.InputRequired("Subject is required")])
+	message = TextAreaField("Message", [validators.InputRequired("Message is required")])
+	submit = SubmitField("Send")
