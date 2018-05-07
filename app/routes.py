@@ -1,4 +1,5 @@
 from flask import flash, render_template, jsonify, request, redirect
+from flask_mail import Message, Mail
 from app.document_models.recipe_documents import Recipe
 from app.document_models.tip_documents import Tip
 from app.forms import RecipeSearchForm, ContactForm
@@ -120,6 +121,9 @@ def specific_tip(tip_id):
     tip = Tip.query.get_or_404(tip_id)
     return render_template('tip_template.html', tip=tip)
 
+mail = Mail()
+mail.init_app(app)
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm(request.form)
@@ -127,5 +131,16 @@ def contact():
         if form.validate()==False:
             return render_template('contact.html', form=form)
         else:
-            return "Thank you!"
+            msg = Message(form.subject.data, sender=app.config["MAIL_USERNAME"], recipients=[app.config["MAIL_USERNAME"]])
+            msg.body = """
+            From: %s <%s>
+            %s
+            """ % (form.name.data, form.email.data, form.message.data)
+            try:
+                mail.send(msg)
+                flash("Message sent! Thank you!")
+                return render_template('contact.html', form=ContactForm())
+            except AssertionError:
+                flash("There was an error in sending the data. Deepest Apologies :(")
+                return render_template('contact.html', form=form)
     return render_template('contact.html', form=form)

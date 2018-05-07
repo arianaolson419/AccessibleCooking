@@ -13,6 +13,9 @@
       {% for field, message in form.errors.items() %}
         <div class="flash">{{ message[0] }}</div>
       {% endfor %}
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
       <form method=post>
                        
             {{ form.name.label }}
