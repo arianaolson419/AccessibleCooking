@@ -36,21 +36,21 @@ class TippedEntry(object):
 
 class Ingredient(TippedEntry):
     def recommend_tips(self):
-        word_list = self.text.split()
-        return Tip.query.filter({'tags':{'$in':['ingredient']}})#,
-                                # 'ingredients':{'$in':word_list}})
+        word_list = self.text.lower().split()
+        return Tip.query.filter({'tags':{'$in':['ingredient']},
+                                'ingredients':{'$in':word_list}})
 
 class Equipment(TippedEntry):
     def recommend_tips(self):
-        word_list = self.text.split()
-        return Tip.query.filter({'tags':{'$in':['equipment']}})#,
-                                # 'equipment':{'$in':word_list}})
+        word_list = self.text.lower().split()
+        return Tip.query.filter({'tags':{'$in':['equipment']},
+                                'equipment':{'$in':word_list}})
 
 class Instruction(TippedEntry):
     def recommend_tips(self):
-        word_list = self.text.split()
-        return Tip.query.filter({'tags':{'$in':['method']}})#,
-                                # 'instructions':{'$in':word_list}})
+        word_list = self.text.lower().split()
+        return Tip.query.filter({'tags':{'$in':['method']},
+                                'instructions':{'$in':word_list}})
 
 class TippedEntryField(db.Field):
     def __init__(self, **kwargs):

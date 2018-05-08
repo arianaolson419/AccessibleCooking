@@ -169,19 +169,19 @@ def dict_to_recipe(request_dict, recipe=None):
     ingredients = []
     line_num = 0
     for line in request_dict['ingredients'].split('\n'):
-        ingredients.append(Ingredient(line=line, line_num=line_num))
+        ingredients.append(Ingredient(line=line.strip(), line_num=line_num))
         line_num+=1
 
     equipment = []
     line_num = 0
     for line in request_dict['equipment'].split('\n'):
-        equipment.append(Equipment(line=line, line_num=line_num))
+        equipment.append(Equipment(line=line.strip(), line_num=line_num))
         line_num+=1
 
     instructions = []
     line_num = 0
     for line in request_dict['instructions'].split('\n'):
-        instructions.append(Instruction(line=line, line_num=line_num))
+        instructions.append(Instruction(line=line.strip(), line_num=line_num))
         line_num+=1
 
     if recipe:
@@ -204,7 +204,7 @@ def dict_to_recipe(request_dict, recipe=None):
 
         recipe.save()
         return recipe
-        
+
     else:
         new_recipe = Recipe(
                     recipe_name=request_dict['recipe_name'],
@@ -237,10 +237,10 @@ def dict_to_tip(request_dict):
                 video_id=video_id_from_url(request_dict['media_url']),
                 difficulty=request_dict['difficulty'],
                 description=request_dict['description'],
-                equipment=request_dict['equipment'].split('\n'),
-                ingredients=request_dict['ingredients'].split('\n'),
-                techniques=request_dict['techniques'].split('\n'),
-                instructions=request_dict['instructions'].split('\n'),
+                equipment=[line.strip().lower() for line in request_dict['equipment'].split('\n')],
+                ingredients=[line.strip().lower() for line in request_dict['ingredients'].split('\n')],
+                techniques=[line.strip().lower() for line in request_dict['techniques'].split('\n')],
+                instructions=[line.strip() for line in request_dict['instructions'].split('\n')],
                 tags=request_dict['tag'])
 
     new_tip.save()

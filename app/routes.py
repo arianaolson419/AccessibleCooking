@@ -105,7 +105,7 @@ def add_new_tip():
         request_dict = request_to_dict(request)
         # TODO: implement required fields and error handling.
         new_tip = dict_to_tip(request_dict)
-        return render_template('upload_tip_success.html', tip_id=tip.get_id())
+        return render_template('upload_tip_success.html', tip_id=new_tip.get_id())
     return render_template('upload_tip_form.html')
 
 @app.route('/recipe/<recipe_id>', methods=['GET', 'POST'])
