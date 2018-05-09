@@ -16,7 +16,7 @@
       <header>
         <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
         
-        <a href="#">Skip to content</a>
+        <a href="#content">Skip to content</a>
         
         {% if site.logo %}
           <img src="{{site.logo | relative_url}}" alt="Logo" />
@@ -43,9 +43,9 @@
         {% endif %}
       </header>
       <section>
-      <main>
+      <div name="content" id="content">
       {{ content }}
-        </main>
+        </div>
       </section>
       <footer>
         {% if site.github.is_project_page %}
