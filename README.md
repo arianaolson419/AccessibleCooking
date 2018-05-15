@@ -1,7 +1,7 @@
 # AccessibleCooking
-A repository for Sightless Chef, a prototype recipe website for people who are visually impaired.
+A repository for Chef's Touch, a prototype recipe website for people who are visually impaired.
 
-Heroku app: https://sightless-chef.herokuapp.com/
+Heroku app: https://chefstouch.herokuapp.com/
 
 Documentation website: https://arianaolson419.github.io/AccessibleCooking/
 
@@ -57,7 +57,7 @@ Follow [startup instructions for Heroku](https://devcenter.heroku.com/start).
 
 ## Recipe and Tip Contribution
 
-Read style_guide.md before contributing content to Sightless Chef. Recipes and tips are intended to be for the visually impaired by the visually impaired or career specialists.
+Read style_guide.md before contributing content to Chef's Touch. Recipes and tips are intended to be for the visually impaired by the visually impaired or career specialists.
 
 ## Built With
 
