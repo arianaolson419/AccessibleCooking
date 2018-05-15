@@ -27,18 +27,22 @@
 				<p>{{ tip.description }}</p>
 			<h3>Difficulty</h3>
 				<p>{{ tip.difficulty }}</p>
-		<!-- <h2>Equipment</h2>
+		<h2>Related Equipment</h2>
 			<ul>
 				{% for equipment in tip.equipment %}
 				<li>{{ equipment }}</li>
+				{% else %}
+				<li>There is no related equipment associated with this tip</li>
 				{% endfor %}
 			</ul>
-		<h2>Ingredients</h2>
+		<h2>Related Ingredients</h2>
 			<ul>
 				{% for ingredient in tip.ingredients %}
 				<li>{{ ingredient }}</li>
+				{% else %}
+				<li>There are no related ingredients associated with this tip</li>
 				{% endfor %}
-			</ul> -->
+			</ul>
 		<h2>Instructions</h2>
 			<ol>
 				{% for instruction in tip.instructions %}
